@@ -1,0 +1,71 @@
+.link {
+    cursor: pointer;
+    position: relative;
+}
+
+.link .noactive:hover .activeLink {
+    height: 20px;
+    border-radius: 3px;
+}
+
+.active .activeLink{
+    height: 40px;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.activeLink {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    left: -15px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    transition: all 0.3s ease;
+}
+
+.link.usualLink div,
+.link.largeLink div {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.largeLink .active div{
+    border-radius: 15px;
+    transition: all 0.2s ease;
+}
+
+.link.usualLink div {
+    background: rgb(54,57,63);
+}
+
+.link.usualLink:hover div,
+.link.largeLink:hover div,
+.usualLink .active div{
+    background: rgb(59,165,93);
+    border-radius: 15px;
+    transition: all 0.2s ease;
+}
+
+.link.usualLink div img {
+    transform: scale(0.5, 0.5);
+}
+
+.link.largeLink div {
+    overflow: hidden;
+}
+
+.link div img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}

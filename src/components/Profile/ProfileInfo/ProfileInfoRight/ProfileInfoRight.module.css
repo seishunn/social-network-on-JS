@@ -1,0 +1,50 @@
+.name {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profileData {
+    background: rgb(47,49,54);
+}
+
+.name div {
+    font-size: 20px;
+}
+
+.name span {
+    font-size: 12px;
+}
+
+.infoFooter {
+}
+
+.infoFooter ul {
+    display: flex;
+    justify-content: center;
+}
+.infoFooter ul li {
+    text-align: center;
+    padding: 10px;
+    margin: 0 10px
+}
+
+.infoFooter ul li div {
+    font-size: 18px;
+}
+
+.infoFooter ul li span {
+    font-size: 12px;
+}
+
+.profile {
+    flex: 1 1 auto;
+}
+
+.profile > div {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.profile > div:last-child {
+    margin-bottom: 0;
+}

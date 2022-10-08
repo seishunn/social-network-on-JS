@@ -1,0 +1,16 @@
+.navigation {
+    padding: 10px;
+    background: rgba(32, 34, 37);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navigation div {
+    margin: 10px 0;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 12px;
+}

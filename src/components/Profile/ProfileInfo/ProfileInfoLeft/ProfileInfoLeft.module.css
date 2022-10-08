@@ -1,0 +1,36 @@
+.profile {
+    flex: 0 0 200px;
+    margin-right: 20px;
+}
+
+.profileBlock {
+    width: 100%;
+}
+
+.avatar {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 0 10px 0;
+}
+
+.avatar > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.change {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px;
+    background: rgb(88,101,242);
+    border-radius: 3px;
+    text-align: center;
+}
