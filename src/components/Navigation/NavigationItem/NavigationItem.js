@@ -1,6 +1,7 @@
-import style from './Link.module.css';
+import style from './NavigationItem.module.css';
+import {Link} from "react-router-dom";
 
-export const LinkButton = ({url, ...props}) => {
+export const NavigationIndicator = ({url, ...props}) => {
     return (
         <>
             <span className={style.activeLink}/>
@@ -11,7 +12,7 @@ export const LinkButton = ({url, ...props}) => {
     )
 }
 
-export const Link = ({url, avatar, ...props}) => {
+export const NavigationItem = ({url, avatar, href, ...props}) => {
     const classes = [style.link];
 
     if (avatar) {
@@ -19,10 +20,9 @@ export const Link = ({url, avatar, ...props}) => {
     } else {
         classes.push(style.usualLink)
     }
-
     return (
-        <div className={classes.join(" ")} {...props}>
-            <LinkButton url={url}/>
-        </div>
+        <Link className={classes.join(" ")} to={href}>
+             <NavigationIndicator url={url}/>
+        </Link>
     );
 }

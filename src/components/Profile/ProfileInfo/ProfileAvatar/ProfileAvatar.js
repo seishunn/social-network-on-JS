@@ -1,7 +1,7 @@
-import style from './ProfileInfoLeft.module.css';
+import style from './ProfileAvatar.module.css';
 import DiscordLogo from '../../../../assets/c09a43a372ba81e3018c3151d4ed4773.png'
 
-export const ProfileInfoLeft = () => {
+export const ProfileAvatar = () => {
     return (
         <div className={style.profile}>
             <div className={style.profileBlock}>

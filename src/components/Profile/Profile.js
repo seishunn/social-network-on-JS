@@ -1,18 +1,19 @@
 import style from './Profile.module.css'
 import {LargeImage} from "./ProfileInfo/LargeImage/LargeImage";
-import {ProfileInfoLeft} from "./ProfileInfo/ProfileInfoLeft/ProfileInfoLeft";
-import {ProfileInfoRight} from "./ProfileInfo/ProfileInfoRight/ProfileInfoRight";
+import {ProfileAvatar} from "./ProfileInfo/ProfileAvatar/ProfileAvatar";
+import {ProfileDescription} from "./ProfileInfo/ProfileDescription/ProfileDescription";
+import {ProfilePosts} from "./ProfileInfo/ProfilePosts/ProfilePosts";
 
 export const Profile = () => {
     return (
         <div className={style.profilePage}>
             <LargeImage/>
             <div className={style.profile}>
-                <ProfileInfoLeft/>
-                <ProfileInfoRight/>
+                <ProfileAvatar/>
+                <ProfileDescription/>
             </div>
             <div className={style.createPost}>
-                {/*<ProfilePosts/>*/}
+                <ProfilePosts/>
             </div>
         </div>
     );

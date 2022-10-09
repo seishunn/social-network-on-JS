@@ -1,0 +1,16 @@
+.profilePosts {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgb(32,34,37);
+}
+
+.addPost {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px;
+    background: rgb(59,165,93);
+    border-radius: 3px;
+    text-align: center;
+}

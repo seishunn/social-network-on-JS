@@ -1,6 +1,6 @@
-import style from './ProfileInfoRight.module.css';
+import style from './ProfileDescription.module.css';
 
-export const ProfileInfoRight = () => {
+export const ProfileDescription = () => {
     return (
         <div className={style.profile}>
             <div className={style.profileData}>
