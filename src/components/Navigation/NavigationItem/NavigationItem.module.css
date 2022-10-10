@@ -3,18 +3,17 @@
     position: relative;
 }
 
-.link .noactive:hover .activeLink {
+/*activeLinkIndicator*/
+.link.noactive:hover .activeLinkIndicator {
     height: 20px;
     border-radius: 3px;
 }
-
-.active .activeLink{
+.active .activeLinkIndicator{
     height: 40px;
     transition: all 0.3s ease;
     border-radius: 3px;
 }
-
-.activeLink {
+.activeLinkIndicator {
     position: absolute;
     width: 10px;
     height: 10px;
@@ -27,8 +26,7 @@
     transition: all 0.3s ease;
 }
 
-.link.usualLink div,
-.link.largeLink div {
+.itemImage {
     width: 50px;
     height: 50px;
     position: relative;
@@ -36,9 +34,11 @@
     transition: all 0.2s ease;
 }
 
-.largeLink .active div{
-    border-radius: 15px;
+/* При фокусе на элемент*/
+.active div{
+    border-radius: 18px;
     transition: all 0.2s ease;
+    background: rgb(59,165,93) !important;
 }
 
 .link.usualLink div {
@@ -46,10 +46,10 @@
 }
 
 .link.usualLink:hover div,
-.link.largeLink:hover div,
+.link.avatarLink:hover div,
 .usualLink .active div{
     background: rgb(59,165,93);
-    border-radius: 15px;
+    border-radius: 18px;
     transition: all 0.2s ease;
 }
 
@@ -57,7 +57,7 @@
     transform: scale(0.5, 0.5);
 }
 
-.link.largeLink div {
+.link div {
     overflow: hidden;
 }
 

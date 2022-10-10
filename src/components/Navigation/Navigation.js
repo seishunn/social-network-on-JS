@@ -7,13 +7,17 @@ export const Navigation = () => {
         <div className={style.navigation}>
             <div>
                 <span className={style.title}>Discord</span>
-                <NavigationItem avatar url={DiscordLogo} href={'/profile'}/>
-                <NavigationItem url={'https://super.so/icon/light/message-square.svg'} href={'/dialogs'}/>
-                <NavigationItem url={'https://super.so/icon/light/users.svg'} href={'/users'}/>
+                <div className={style.navigationList}>
+                    <NavigationItem avatar url={DiscordLogo} href={'/profile'}/>
+                    <NavigationItem url={'https://super.so/icon/light/message-square.svg'} href={'/dialogs'}/>
+                    <NavigationItem url={'https://super.so/icon/light/users.svg'} href={'/users'}/>
+                </div>
             </div>
             <div>
-                <NavigationItem url={'https://super.so/icon/light/log-out.svg'}/>
-                <NavigationItem url={'https://super.so/icon/light/log-in.svg'}/>
+                <div className={style.authList}>
+                    <NavigationItem url={'https://super.so/icon/light/log-out.svg'} href={'/logIn'}/>
+                    <NavigationItem url={'https://super.so/icon/light/log-in.svg'} href={'/logOut'}/>
+                </div>
             </div>
         </div>
     );
