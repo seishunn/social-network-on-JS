@@ -1,0 +1,29 @@
+.messagesPage {
+    flex: 1 1 auto;
+}
+.messages {
+    width: 100%;
+    padding-left: 15px;
+    max-height: calc(100vh - 23px - 50px);
+    height: 100%;
+    overflow: auto;
+    background: rgb(54,57,63);
+}
+
+.messages::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+.messages::-webkit-scrollbar-corner{
+    background-color: transparent;
+}
+.messages::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background-color: rgb(32,34,37);
+    min-height: 40px;
+}
+.messages::-webkit-scrollbar-track {
+    background-color: transparent;
+}

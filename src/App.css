@@ -44,7 +44,7 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
 }
 
 .main {
-  overflow: hidden;
+  overflow: auto;
   margin-top: 23px;
   border-top-left-radius: 8px;
 }

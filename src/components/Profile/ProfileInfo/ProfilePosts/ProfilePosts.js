@@ -1,12 +1,12 @@
-import {Post} from "./Post/Post";
+import {TextItem} from "../../../TextItem/TextItem";
 
 export const ProfilePosts = () => {
     return (
-        <div>
-            <Post text={"Привет, React"}/>
-            <Post text={"Привет, JS"}/>
-            <Post text={"Привет, bundle.js"}/>
-            <Post text={"Привет, props"}/>
-        </div>
+        <ul>
+            <li><TextItem text={"Привет, React"}/></li>
+            <li><TextItem text={"Привет, JS"}/></li>
+            <li><TextItem text={"Привет, bundle.js"}/></li>
+            <li><TextItem text={"Привет, props"}/></li>
+        </ul>
     );
 }
