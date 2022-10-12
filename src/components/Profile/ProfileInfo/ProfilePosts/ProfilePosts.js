@@ -1,12 +1,14 @@
 import {TextItem} from "../../../TextItem/TextItem";
+import style from "./ProfilePosts.module.css";
 
-export const ProfilePosts = () => {
+export const ProfilePosts = (props) => {
+    let postsElements = props.posts.map(post => <li><TextItem {...post}/></li>)
+
     return (
-        <ul>
-            <li><TextItem text={"Привет, React"}/></li>
-            <li><TextItem text={"Привет, JS"}/></li>
-            <li><TextItem text={"Привет, bundle.js"}/></li>
-            <li><TextItem text={"Привет, props"}/></li>
-        </ul>
+        <div className={style.createPost}>
+            <ul>
+                {postsElements}
+            </ul>
+        </div>
     );
 }

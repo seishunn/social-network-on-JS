@@ -8,15 +8,17 @@ import {
     Route
 } from "react-router-dom";
 
-const App = () => {
+const App = ({state, ...props}) => {
     return (
         <Router>
             <div className="App">
                 <Navigation/>
                 <div className={"main"}>
                     <Routes>
-                        <Route path={"/profile"} element={<Profile/>}/>
-                        <Route path={"/dialogs/*"} element={<Dialogs/>}/>
+                        <Route path={"/profile"}
+                               element={<Profile state={state.profilePage}/>}/>
+                        <Route path={"/dialogs/*"}
+                               element={<Dialogs state={state.dialogsPage}/>}/>
                     </Routes>
                 </div>
             </div>

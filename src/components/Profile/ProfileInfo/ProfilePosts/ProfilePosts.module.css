@@ -14,3 +14,8 @@
     border-radius: 3px;
     text-align: center;
 }
+.createPost {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}

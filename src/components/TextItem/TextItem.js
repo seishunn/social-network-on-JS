@@ -13,7 +13,7 @@ const TextItem = ({noUser, ...props}) => {
                         <div className={style.nameAndDate}><span
                             className={style.userName}>{props?.name || "Anonymous"}</span> <span
                             className={style.postDate}>09.10.22</span></div>
-                        <div className={style.description}>{props.text}</div>
+                        <div className={style.description}>{props.message}</div>
                     </div>
                 </div>
             </li>
@@ -23,7 +23,7 @@ const TextItem = ({noUser, ...props}) => {
         return (
             <li>
                 <div className={style.noUser}>
-                    <div className={style.description}>{props.text}</div>
+                    <div className={style.description}>{props.message}</div>
                 </div>
             </li>
         )

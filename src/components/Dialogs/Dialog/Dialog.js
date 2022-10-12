@@ -1,9 +1,11 @@
 import style from "./Dialog.module.css";
 import {NavLink} from "react-router-dom";
 
-export const Dialog = ({name, href, ...props}) => {
+export const Dialog = ({name, id, ...props}) => {
+    let path = `/dialogs/${id}`;
+
     return (
-        <NavLink to={href || ''} className={style.dialog}>
+        <NavLink to={path} className={({isActive, ...obj}) => isActive? (`${style.dialog} ${style.active}`) : (style.dialog)}>
             <div className={style.avatar}>
                 <img src="https://i.pinimg.com/originals/96/5f/53/965f53b4c0bb836ff10cec9692c04aa8.jpg" alt=""/>
             </div>

@@ -8,9 +8,13 @@
     overflow-x: hidden;
     cursor: pointer;
 }
+.active {
+    background: rgb(66,70,77);
+    color: rgb(255,255,244);
+}
 .dialog:hover {
     background: rgb(60,63,69);
-    color: #fff;
+    color: rgb(220,221,222);
 }
 .avatar {
     position: relative;
