@@ -11,7 +11,11 @@ export const Dialogs = ({state, ...props}) => {
             <div className={style.dialogsSideBar}>
                 <DialogItems dialogs={dialogsElements}/>
             </div>
-            <Messages messages={state.messages}/>
+            <Messages
+                state={state}
+                addMessage={props.addMessage}
+                updateNewMessageText={props.updateNewMessageText}
+            />
         </div>
     );
 }

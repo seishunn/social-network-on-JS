@@ -1,11 +1,10 @@
 import style from "./AddItemArea.module.css";
-import {updateNewPostText} from "../../redux/state";
 
-export const AddItemArea = ({userName, onButtonClick, ...props}) => {
-    let onPostChange = (text) => {
-        props.updateNewPostText(text)
+export const AddItemArea = ({userName, onButtonClick, value, valueChange, ...props}) => {
+    let textChange = (text) => {
+        valueChange(text)
     }
-    let addPost = () => {
+    let addItem = () => {
         onButtonClick()
     }
     return (
@@ -14,15 +13,14 @@ export const AddItemArea = ({userName, onButtonClick, ...props}) => {
                 <div className={style.textArea}>
                     <div>
                         <textarea
-                            // ref={newPostElement}
                             placeholder={userName ? `Написать @${userName}` : "Добавить пост"}
-                            value={props.newPostText}
-                            onChange={e => onPostChange(e.target.value)}
+                            value={value}
+                            onChange={e => textChange(e.target.value)}
                         />
                     </div>
                 </div>
                 <div className={style.btnAdd}>
-                    <div onClick={addPost}>+</div>
+                    <div onClick={addItem}>+</div>
                 </div>
             </div>
         </div>

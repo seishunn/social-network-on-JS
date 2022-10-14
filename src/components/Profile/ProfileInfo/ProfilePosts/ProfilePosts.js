@@ -8,7 +8,7 @@ export const ProfilePosts = (props) => {
 
     return (
         <div className={style.createPost}>
-            <AddItemArea onButtonClick={props.addPost} updateNewPostText={props.updateNewPostText} newPostText={props.newPostText}/>
+            <AddItemArea onButtonClick={props.addPost} valueChange={props.updateNewPostText} value={props.newPostText}/>
             <ul>
                 {postsElements}
             </ul>
