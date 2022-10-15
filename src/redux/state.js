@@ -1,4 +1,8 @@
 const userAvatar = "https://i.pinimg.com/originals/96/5f/53/965f53b4c0bb836ff10cec9692c04aa8.jpg";
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_MESSAGE = "ADD-MESSAGE";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
 
 let store = {
     _callSubscriber () {
@@ -66,42 +70,45 @@ let store = {
     subscribe (observer) {
         this._callSubscriber = observer;
     },
-    addPost () {
-        let newPost = {
-            id: 5,
-            message: this._state.profilePage.newPostText
+
+    dispatch (action) {
+        if (action.type === ADD_POST) {
+            let newPost = {
+                id: 5,
+                message: this._state.profilePage.newPostText
+            }
+
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+
+            this._callSubscriber();
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+            this._state.profilePage.newPostText = action.payload;
+
+            this._callSubscriber();
+        } else if (action.type === ADD_MESSAGE) {
+            let newMessage = {
+                id: 19,
+                myMessage: true,
+                message: this._state.dialogsPage.newMessageText,
+                name: "Anonymous"
+            };
+
+            this._state.dialogsPage.newMessageText = ""
+            this._state.dialogsPage.messages.push(newMessage)
+            this._callSubscriber();
+        } else {
+            this._state.dialogsPage.newMessageText = action.payload;
+
+            this._callSubscriber();
         }
-
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-
-        this._callSubscriber();
-    },
-    updateNewPostText (message) {
-        this._state.profilePage.newPostText = message;
-
-        this._callSubscriber();
-    },
-    addMessage () {
-        let newMessage = {
-            id: 19,
-            myMessage: true,
-            message: this._state.dialogsPage.newMessageText,
-            name: "Anonymous"
-        };
-
-        this._state.dialogsPage.newMessageText = ""
-        this._state.dialogsPage.messages.push(newMessage)
-        this._callSubscriber();
-    },
-    updateNewMessageText (message) {
-        this._state.dialogsPage.newMessageText = message;
-
-        this._callSubscriber();
     }
 }
 
-
+export let addPostActionCreator = () => ({type: ADD_POST});
+export let updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, payload: text});
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
+export const updateNewMessageTextActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, payload: text});
 
 window.state = store.getState();
 export {store};

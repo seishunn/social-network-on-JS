@@ -2,8 +2,9 @@ import style from "./Messages.module.css";
 import {MessagesList} from "./MessagesList/MessagesList";
 import {MessagesUserBar} from "./MessagesUserBar/MessagesUserBar";
 import {AddItemArea} from "../../AddItemArea/AddItemArea";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/state";
 
-export const Messages = ({messages, state, ...props}) => {
+export const Messages = ({state, dispatch, ...props}) => {
     return (
         <div className={style.messagesPage}>
             <MessagesUserBar/>
@@ -12,9 +13,10 @@ export const Messages = ({messages, state, ...props}) => {
             </div>
             <AddItemArea
                 userName={"User"}
-                onButtonClick={props.addMessage}
                 value={state.newMessageText}
-                valueChange={props.updateNewMessageText}
+                dispatch={dispatch}
+                textChangeAction={(text) => updateNewMessageTextActionCreator(text)}
+                addItemAction={addMessageActionCreator()}
             />
         </div>
     );

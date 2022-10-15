@@ -15,16 +15,14 @@ const App = ({store, ...props}) => {
                                element={
                                    <Profile
                                        state={store.getState().profilePage}
-                                       addPost={store.addPost.bind(store)}
-                                       updateNewPostText={store.updateNewPostText.bind(store)}
+                                       dispatch={props.dispatch}
                                    />}
                         />
                         <Route path={"/dialogs/*"}
                                element={
                                    <Dialogs
                                        state={store.getState().dialogsPage}
-                                       addMessage={store.addMessage.bind(store)}
-                                       updateNewMessageText={store.updateNewMessageText.bind(store)}
+                                       dispatch={props.dispatch}
                                    />}
                         />
                     </Routes>

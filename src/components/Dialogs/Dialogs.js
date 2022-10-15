@@ -13,8 +13,7 @@ export const Dialogs = ({state, ...props}) => {
             </div>
             <Messages
                 state={state}
-                addMessage={props.addMessage}
-                updateNewMessageText={props.updateNewMessageText}
+                dispatch={props.dispatch}
             />
         </div>
     );
