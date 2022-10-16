@@ -2,7 +2,7 @@ import style from "./Messages.module.css";
 import {MessagesList} from "./MessagesList/MessagesList";
 import {MessagesUserBar} from "./MessagesUserBar/MessagesUserBar";
 import {AddItemArea} from "../../AddItemArea/AddItemArea";
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/state";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogs-reducer";
 
 export const Messages = ({state, dispatch, ...props}) => {
     return (

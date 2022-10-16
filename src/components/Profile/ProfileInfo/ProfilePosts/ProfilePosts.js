@@ -1,7 +1,7 @@
 import {TextItem} from "../../../TextItem/TextItem";
 import style from "./ProfilePosts.module.css";
 import {AddItemArea} from "../../../AddItemArea/AddItemArea";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/state";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/profile-reducer";
 
 
 
