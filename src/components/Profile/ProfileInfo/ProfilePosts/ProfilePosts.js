@@ -1,7 +1,6 @@
-import {TextItem} from "../../../TextItem/TextItem";
 import style from "./ProfilePosts.module.css";
 import {AddItemArea} from "../../../AddItemArea/AddItemArea";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/profile-reducer";
+import {TextItem} from "../../../TextItem/TextItem";
 
 
 
@@ -11,10 +10,9 @@ export const ProfilePosts = (props) => {
     return (
         <div className={style.createPost}>
             <AddItemArea
-                dispatch={props.dispatch}
-                value={props.newPostText}
-                textChangeAction={text => updateNewPostTextActionCreator(text)}
-                addItemAction={addPostActionCreator()}
+                value={props.value}
+                textChangeAction={props.textChangeAction}
+                addItemAction={props.addItemAction}
             />
             <ul>
                 {postsElements}

@@ -1,11 +1,11 @@
 import style from "./AddItemArea.module.css";
 
-export const AddItemArea = ({userName, dispatch, value, ...props}) => {
+export const AddItemArea = ({userName, value, textChangeAction, addItemAction, ...props}) => {
     let textChange = (text) => {
-        dispatch(props.textChangeAction(text));
+        textChangeAction(text);
     }
     let addItem = () => {
-        dispatch(props.addItemAction);
+        addItemAction();
     }
     return (
         <div className={style.addItemInput}>

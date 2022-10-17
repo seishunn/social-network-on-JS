@@ -1,7 +1,7 @@
 import style from "./Dialogs.module.css";
 import {DialogItems} from "./DialogItems/DialogItems";
-import {Messages} from "./Messages/Messages";
 import {Dialog} from "./Dialog/Dialog";
+import {MessagesContainer} from "./Messages/MessagesContainer";
 
 export const Dialogs = ({state, ...props}) => {
     let dialogsElements = state.dialogs.map(dialog => <li><Dialog {...dialog}/></li>);
@@ -11,7 +11,7 @@ export const Dialogs = ({state, ...props}) => {
             <div className={style.dialogsSideBar}>
                 <DialogItems dialogs={dialogsElements}/>
             </div>
-            <Messages
+            <MessagesContainer
                 state={state}
                 dispatch={props.dispatch}
             />
