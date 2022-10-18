@@ -1,5 +1,4 @@
 import style from "./DialogItems.module.css";
-import {Dialog} from "../Dialog/Dialog";
 
 export const DialogItems = ({dialogs, ...props}) => {
     return (

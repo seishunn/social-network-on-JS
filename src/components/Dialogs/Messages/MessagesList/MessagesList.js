@@ -9,12 +9,13 @@ export const MessagesList = ({messages, ...props}) => {
                     avatar={message?.userAvatar || DiscordLogo}
                     message={message.message}
                     name={message.name}
+                    key={message.id}
                 />
             )
         } else {
             if (array[index - 1].myMessage === message.myMessage) {
                 return (
-                    <TextItem message={message.message} noUser/>
+                    <TextItem message={message.message} noUser key={message.id}/>
                 )
             } else {
                 return (
@@ -22,6 +23,7 @@ export const MessagesList = ({messages, ...props}) => {
                         avatar={message?.userAvatar || DiscordLogo}
                         message={message.message}
                         name={message.name}
+                        key={message.id}
                     />
                 )
             }

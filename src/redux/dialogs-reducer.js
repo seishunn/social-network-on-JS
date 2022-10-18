@@ -50,7 +50,7 @@ const initialState = {
 
 export const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case ADD_MESSAGE: {
             let newMessage = {
                 id: 19,
                 myMessage: true,
@@ -58,12 +58,18 @@ export const dialogsReducer = (state = initialState, action) => {
                 name: "Anonymous"
             };
 
-            state.newMessageText = "";
-            state.messages.push(newMessage);
-            return state;
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.payload;
-            return state;
+            return {
+                ...state,
+                newMessageText: "",
+                messages: [...state.messages, newMessage]
+            };
+        }
+        case UPDATE_NEW_MESSAGE_TEXT: {
+            return {
+                ...state,
+                newMessageText: action.payload
+            };
+        }
         default:
             return state;
     }
