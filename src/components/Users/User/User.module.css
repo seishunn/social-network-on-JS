@@ -1,0 +1,99 @@
+.user {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgb(66,70,77);
+    border-bottom: 1px solid rgb(66,70,77);
+    cursor: pointer;
+}
+
+.userLeft {
+    display: flex;
+}
+
+.userRight {
+    display: flex;
+}
+
+
+.link {
+    width: 35px;
+    height: 35px;
+    background: rgb(47,49,54);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.link img {
+    transform: scale(0.7, 0.7);
+}
+
+.user:hover {
+    background: rgb(64,68,75);
+    border-radius: 10px;
+}
+
+.user:hover .name span {
+    visibility: visible;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 0 10px 0 0;
+}
+
+.avatarStatus {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    bottom: 0;
+    right: 2px;
+    z-index: 1;
+    background: white;
+    border: 3px solid rgb(54, 57, 63);
+}
+
+.avatar img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 0 5px 0;
+    color: #fff;
+}
+
+.status, .name span {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgb(165,167,171);
+}
+
+.name span {
+    font-size: 14px;
+    font-weight: 600;
+    visibility: hidden;
+}
+
+.addUser {
+    background: rgb(59,165,93);
+}
+
+.removeUser {
+    background: rgb(165,167,171);
+}

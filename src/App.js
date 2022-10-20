@@ -3,6 +3,7 @@ import {Navigation} from "./components/Navigation/Navigation";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 const App = ({store, ...props}) => {
     return (
@@ -25,6 +26,8 @@ const App = ({store, ...props}) => {
                                        dispatch={props.dispatch}
                                    />}
                         />
+                        <Route path={"/users/*"}
+                               element={<UsersContainer/>}/>
                     </Routes>
                 </div>
             </div>
