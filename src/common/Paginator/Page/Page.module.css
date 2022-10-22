@@ -1,0 +1,16 @@
+.page {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 50%;
+    background: rgba(32, 34, 37);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px 5px 0;
+}
+
+.page.active {
+    background: rgb(59,165,93);
+}
