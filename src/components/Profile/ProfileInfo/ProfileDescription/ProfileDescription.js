@@ -1,13 +1,13 @@
 import style from './ProfileDescription.module.css';
 
-export const ProfileDescription = () => {
+export const ProfileDescription = (props) => {
     return (
         <div className={style.profile}>
             <div className={style.profileData}>
                 <div className={style.name}>
-                    <div>Anonymous</div>
+                    <div>{props.profile?.fullName || "Anonymous"}</div>
                 </div>
-                <div className={style.status}>nothing</div>
+                <div className={style.status}>{props.profile?.aboutMe || "nothing"}</div>
                 <div className={style.infoFooter}>
                     <ul>
                         <li>

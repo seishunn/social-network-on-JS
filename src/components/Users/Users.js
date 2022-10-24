@@ -1,17 +1,14 @@
 import style from "./Users.module.css"
 import {User} from "./User/User";
-import axios from "axios";
+import {Paginator} from "../../common/Paginator/Paginator";
+import React from "react";
 
 export const Users = (props) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios
-                .get("https://social-network.samuraijs.com/api/1.0/users")
-                .then(response => {
-                    props.setUsers(response.data.items)
-                })
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
 
-        }
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
     const usersList = props.users.map(user => (
@@ -22,8 +19,8 @@ export const Users = (props) => {
             status={user.status}
             photos={user.photos}
             followed={user.followed}
-            follow={props.followUser}
-            unfollow={props.unfollowUser}
+            follow={props.follow}
+            unfollow={props.unfollow}
         />)
     );
 
@@ -33,10 +30,15 @@ export const Users = (props) => {
                 <div className={style.title}>
                     Пользователи
                 </div>
-                <button onClick={getUsers}>Получить пользователей</button>
                 <div className={style.users}>
                     {usersList}
                 </div>
+                <Paginator
+                    pagesSize={pages}
+                    currentPage={props.currentPage}
+                    changeCurrentPage={props.changeCurrentPage}
+                    pageChanged={props.pageChanged}
+                />
             </div>
         </div>
     );

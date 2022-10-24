@@ -3,9 +3,8 @@ import DiscordLogo from "../../../assets/c09a43a372ba81e3018c3151d4ed4773.png"
 import {NavLink} from "react-router-dom";
 
 export const User = (props) => {
-
     return (
-        <NavLink to={`/users/${props.id}`}>
+        <NavLink to={`/profile/${props.id}`}>
             <div className={style.user}>
                 <div className={style.userLeft}>
                     <div className={style.avatar}>
@@ -27,13 +26,19 @@ export const User = (props) => {
                     {props.followed
                         ? <button
                             className={style.link}
-                            onClick={() => props.unfollow(props.id)}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                props.unfollow(props.id)
+                            }}
                         >
                             <img src="https://super.so/icon/light/user-x.svg" alt=""/>
                         </button>
                         : <button
                             className={[style.link, style.addUser].join(" ")}
-                            onClick={() => props.follow(props.id)}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                props.follow(props.id)
+                            }}
                         >
                             <img src="https://super.so/icon/light/user-plus.svg" alt=""/>
                         </button>

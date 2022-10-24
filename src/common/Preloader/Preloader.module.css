@@ -1,0 +1,79 @@
+.preloaderBlock {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    position: fixed;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.preloader {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 3;
+}
+
+.preloader span {
+    position: absolute;
+    border-radius: 50%;
+    animation: animate 5s linear infinite;
+    mix-blend-mode: plus-lighter;
+    filter: blur(30px);
+}
+
+.preloader span:nth-child(1) {
+    width: 318px;
+    height: 318px;
+    transform-origin: 118px;
+    background: #fbad04;
+    animation-duration: 2.5s;
+}
+
+.preloader span:nth-child(2) {
+    width: 313px;
+    height: 313px;
+    transform-origin: 113px;
+    background: #03a1d9;
+    animation-duration: 5s;
+}
+
+.preloader span:nth-child(3) {
+    width: 315px;
+    height: 315px;
+    transform-origin: 115px;
+    background: #f7036d;
+    animation-duration: 7.5s;
+}
+
+.preloader span:nth-child(4) {
+    width: 320px;
+    height: 320px;
+    transform-origin: 120px;
+    background: #93ff16;
+    animation-duration: 10s;
+}
+
+.preloader span:nth-child(even) {
+    animation-direction: reverse;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loaderText {
+    position: relative;
+    top: 120px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}

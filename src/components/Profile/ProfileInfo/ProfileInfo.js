@@ -6,10 +6,10 @@ import {ProfileDescription} from "./ProfileDescription/ProfileDescription";
 export const ProfileInfo = (props) => {
     return (
         <>
-            <LargeImage/>
+            <LargeImage photo={props.profile?.photos}/>
             <div className={style.profile}>
-                <ProfileAvatar/>
-                <ProfileDescription/>
+                <ProfileAvatar photo={props.profile?.photos}/>
+                <ProfileDescription profile={props.profile}/>
             </div>
         </>
     );

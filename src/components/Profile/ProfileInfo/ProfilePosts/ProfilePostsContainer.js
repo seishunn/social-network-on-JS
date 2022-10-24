@@ -6,19 +6,13 @@ let mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
         value: state.profilePage.newPostText,
-    }
-};
-let mapDispatchToProps = (dispatch) => {
-    return {
-        textChangeAction: (text) => {
-            dispatch(updateNewPostTextActionCreator(text));
-        },
-        addItemAction: () => {
-            dispatch(addPostActionCreator());
-        }
+        profile: state.profilePage.profile
     }
 };
 
-const ProfilePostsContainer = connect(mapStateToProps, mapDispatchToProps)(ProfilePosts);
+const ProfilePostsContainer = connect(mapStateToProps, {
+    textChangeAction: updateNewPostTextActionCreator,
+    addItemAction: addPostActionCreator
+})(ProfilePosts);
 
 export {ProfilePostsContainer}

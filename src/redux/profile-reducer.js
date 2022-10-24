@@ -1,5 +1,7 @@
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_POST = "ADD_POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 const initialState = {
     posts: [
@@ -8,7 +10,9 @@ const initialState = {
         {id: 3, message: "Привет, bundle.js"},
         {id: 4, message: "Привет, props"},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null,
+    isFetching: false
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -30,6 +34,18 @@ export const profileReducer = (state = initialState, action) => {
                 newPostText: action.payload
             };
         }
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.payload,
+            }
+        }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.payload
+            }
+        }
         default:
             return state;
     }
@@ -37,3 +53,5 @@ export const profileReducer = (state = initialState, action) => {
 
 export let addPostActionCreator = () => ({type: ADD_POST});
 export let updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, payload: text});
+export let setUserProfileActionCreator = (user) => ({type: SET_USER_PROFILE, payload: user});
+export let toggleIsFetchingActionCreator = (isFetching) => ({type: TOGGLE_IS_FETCHING, payload: isFetching})
