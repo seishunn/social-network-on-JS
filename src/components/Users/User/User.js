@@ -1,8 +1,10 @@
 import style from "./User.module.css"
 import DiscordLogo from "../../../assets/c09a43a372ba81e3018c3151d4ed4773.png"
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 export const User = (props) => {
+    console.log(props)
     return (
         <NavLink to={`/profile/${props.id}`}>
             <div className={style.user}>
@@ -28,6 +30,24 @@ export const User = (props) => {
                             className={style.link}
                             onClick={(e) => {
                                 e.preventDefault()
+
+                                axios
+                                    .delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+                                        {
+                                            withCredentials: true,
+                                            headers: {
+                                                "API-KEY": "553d8f1d-bf7c-4895-a33e-915c206d7e8d",
+                                            }
+                                        }
+                                    )
+                                    .then(response => {
+                                        console.log(response)
+
+                                        if (response.data.resultCode === 0) {
+
+                                        }
+                                    })
+
                                 props.unfollow(props.id)
                             }}
                         >
@@ -37,7 +57,24 @@ export const User = (props) => {
                             className={[style.link, style.addUser].join(" ")}
                             onClick={(e) => {
                                 e.preventDefault()
-                                props.follow(props.id)
+
+                                axios
+                                    .post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+                                        {},
+                                        {
+                                            withCredentials: true,
+                                            headers: {
+                                                "API-KEY": "553d8f1d-bf7c-4895-a33e-915c206d7e8d",
+                                            }
+                                        }
+                                    )
+                                    .then(response => {
+                                        console.log(response)
+
+                                        if (response.data.resultCode === 0) {
+                                            props.follow(props.id)
+                                        }
+                                    })
                             }}
                         >
                             <img src="https://super.so/icon/light/user-plus.svg" alt=""/>

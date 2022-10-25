@@ -19,7 +19,7 @@ const App = ({store, ...props}) => {
                                        dispatch={props.dispatch}
                                    />}
                         />
-                        <Route path={"/profile/*"}
+                        <Route path={"/profile/:id"}
                                element={
                                    <ProfileContainer
                                        state={store.getState().profilePage}
