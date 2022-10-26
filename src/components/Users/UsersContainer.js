@@ -7,35 +7,26 @@ import {
     unfollowUserActionCreator
 } from "../../redux/users-reducer";
 import React from "react";
-import axios from "axios";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {usersAPI} from "../../API/API";
 
 // Первая контейнерная компонента, для получения списка пользователей при вмонтировании. (2 уровень)
 export class UsersClassAPIComponent extends React.Component {
     componentDidMount = () => {
         this.props.toggleIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-                {
-                    withCredentials: true,
-                    headers: {
-                        "API-KEY": "553d8f1d-bf7c-4895-a33e-915c206d7e8d"
-                    }
-                })
-            .then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             })
     }
     onPageChanged = (page) => {
         this.props.toggleIsFetching(true);
         this.props.changeCurrentPage(page)
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
-            .then(response => {
+        usersAPI.getUsers(page, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
     render() {

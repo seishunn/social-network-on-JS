@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {setUserProfileActionCreator, toggleIsFetchingActionCreator} from "../../redux/profile-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import {useParams} from "react-router-dom";
+import {usersAPI} from "../../API/API";
 
 function WithRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -28,11 +29,10 @@ class ProfileContainerAPIComponent extends React.Component {
         if (!id) {
             id = 26430;
         }
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
-            .then(response => {
+        usersAPI.getUserProfile(id)
+            .then(data => {
                 this.props.toggleIsFetching(false);
-                this.props.setUserProfile(response.data)
+                this.props.setUserProfile(data)
             })
     }
 
