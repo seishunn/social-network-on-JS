@@ -90,10 +90,18 @@
     visibility: hidden;
 }
 
+.userFetching, .addUser, .removeUser {
+    transition: all 0.3s ease;
+}
+
+.userFetching {
+    background: rgb(82,85,94);
+}
+
 .addUser {
     background: rgb(59,165,93);
 }
 
 .removeUser {
-    background: rgb(165,167,171);
+    background: rgb(235,76,66);
 }

@@ -3,7 +3,7 @@ import {Users} from "./Users";
 import {
     followUserActionCreator,
     setCurrentPageActionCreator, setTotalUsersCountActionCreator,
-    setUSERActionCreator, toggleIsFetchingActionCreator,
+    setUSERActionCreator, toggleFollowingProgressActionCreator, toggleIsFetchingActionCreator,
     unfollowUserActionCreator
 } from "../../redux/users-reducer";
 import React from "react";
@@ -41,6 +41,8 @@ export class UsersClassAPIComponent extends React.Component {
                     currentPage={this.props.currentPage}
                     follow={this.props.followUser}
                     unfollow={this.props.unfollowUser}
+                    toggleFollowingProgress={this.props.toggleFollowingProgress}
+                    followingInProgress={this.props.followingInProgress}
                 />
             </>
         )
@@ -55,6 +57,7 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -86,5 +89,6 @@ export const UsersContainer = connect(mapStateToProps, {
     setUsers: setUSERActionCreator,
     changeCurrentPage: setCurrentPageActionCreator,
     setTotalUsersCount: setTotalUsersCountActionCreator,
-    toggleIsFetching: toggleIsFetchingActionCreator
+    toggleIsFetching: toggleIsFetchingActionCreator,
+    toggleFollowingProgress: toggleFollowingProgressActionCreator
 })(UsersClassAPIComponent)

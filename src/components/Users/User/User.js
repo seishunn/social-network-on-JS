@@ -23,18 +23,19 @@ export const User = (props) => {
                         <div className={style.status}>{props.status}</div>
                     </div>
                 </div>
-                <div className={style.userRight}>
+                <div className={style.userRight} onClick={e => e.preventDefault()}>
                     {props.followed
                         ? <button
-                            className={style.link}
-                            onClick={(e) => {
-                                e.preventDefault()
+                            disabled={props.followingInProgress.some(id => id === props.id)}
+                            className={`${style.link} ${props.followingInProgress.some(id => id === props.id)? style.userFetching: style.removeUser}`}
+                            onClick={() => {
+                                props.toggleFollowingProgress(true, props.id);
 
                                 usersAPI.unfollowUser(props.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
                                             props.unfollow(props.id)
-
+                                            props.toggleFollowingProgress(false, props.id);
                                         }
                                     })
 
@@ -43,14 +44,16 @@ export const User = (props) => {
                             <img src="https://super.so/icon/light/user-x.svg" alt=""/>
                         </button>
                         : <button
-                            className={[style.link, style.addUser].join(" ")}
-                            onClick={(e) => {
-                                e.preventDefault()
+                            disabled={props.followingInProgress.some(id => id === props.id)}
+                            className={`${style.link} ${props.followingInProgress.some(id => id === props.id)? style.userFetching: style.addUser}`}
+                            onClick={() => {
+                                props.toggleFollowingProgress(true, props.id);
 
                                 usersAPI.followUser(props.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
-                                            props.follow(props.id)
+                                            props.follow(props.id);
+                                            props.toggleFollowingProgress(false, props.id);
                                         }
                                     })
                             }}

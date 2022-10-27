@@ -21,6 +21,8 @@ export const Users = (props) => {
             followed={user.followed}
             follow={props.follow}
             unfollow={props.unfollow}
+            toggleFollowingProgress={props.toggleFollowingProgress}
+            followingInProgress={props.followingInProgress}
         />)
     );
 
