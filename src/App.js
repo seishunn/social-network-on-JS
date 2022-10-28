@@ -4,6 +4,8 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {Login} from "./components/Login/Login";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 const App = ({store, ...props}) => {
     return (
@@ -16,25 +18,25 @@ const App = ({store, ...props}) => {
                                element={
                                    <ProfileContainer
                                        state={store.getState().profilePage}
-                                       dispatch={props.dispatch}
                                    />}
                         />
                         <Route path={"/profile/:id"}
                                element={
                                    <ProfileContainer
                                        state={store.getState().profilePage}
-                                       dispatch={props.dispatch}
                                    />}
                         />
                         <Route path={"/dialogs/*"}
                                element={
-                                   <Dialogs
+                                   <DialogsContainer
                                        state={store.getState().dialogsPage}
-                                       dispatch={props.dispatch}
                                    />}
                         />
                         <Route path={"/users/*"}
                                element={<UsersContainer/>}/>
+                        <Route path={"/login/*"}
+                               element={<Login/>}
+                        />
                     </Routes>
                 </div>
             </div>

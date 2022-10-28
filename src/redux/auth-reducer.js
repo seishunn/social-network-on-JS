@@ -1,3 +1,5 @@
+import {profileAPI} from "../API/API";
+
 const SET_USER_DATA = "SET_USER_DATA";
 
 let initialState = {
@@ -22,4 +24,15 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setUserDataActionCreator = (user) => ({type: SET_USER_DATA, payload: user})
+export const setUserDataActionCreator = (user) => ({type: SET_USER_DATA, payload: user});
+
+export const setUserDataThunkCreator = () => {
+    return dispatch => {
+        profileAPI.me()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setUserDataActionCreator(data.data));
+                }
+            })
+    }
+}

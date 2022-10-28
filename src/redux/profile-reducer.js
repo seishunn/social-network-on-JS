@@ -1,3 +1,5 @@
+import {usersAPI} from "../API/API";
+
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -55,3 +57,15 @@ export let addPostActionCreator = () => ({type: ADD_POST});
 export let updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, payload: text});
 export let setUserProfileActionCreator = (user) => ({type: SET_USER_PROFILE, payload: user});
 export let toggleIsFetchingActionCreator = (isFetching) => ({type: TOGGLE_IS_FETCHING, payload: isFetching})
+
+export const getUserThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetchingActionCreator(true));
+
+        usersAPI.getUserProfile(userId)
+            .then(data => {
+                dispatch(toggleIsFetchingActionCreator(false));
+                dispatch(setUserProfileActionCreator(data));
+            })
+    }
+}

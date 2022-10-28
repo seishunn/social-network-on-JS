@@ -1,7 +1,6 @@
 import style from "./User.module.css"
 import DiscordLogo from "../../../assets/c09a43a372ba81e3018c3151d4ed4773.png"
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../../API/API";
 
 export const User = (props) => {
     return (
@@ -27,35 +26,18 @@ export const User = (props) => {
                     {props.followed
                         ? <button
                             disabled={props.followingInProgress.some(id => id === props.id)}
-                            className={`${style.link} ${props.followingInProgress.some(id => id === props.id)? style.userFetching: style.removeUser}`}
+                            className={`${style.link} ${props.followingInProgress.some(id => id === props.id) ? style.userFetching : style.removeUser}`}
                             onClick={() => {
-                                props.toggleFollowingProgress(true, props.id);
-
-                                usersAPI.unfollowUser(props.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.unfollow(props.id)
-                                            props.toggleFollowingProgress(false, props.id);
-                                        }
-                                    })
-
+                                props.unfollow(props.id);
                             }}
                         >
                             <img src="https://super.so/icon/light/user-x.svg" alt=""/>
                         </button>
                         : <button
                             disabled={props.followingInProgress.some(id => id === props.id)}
-                            className={`${style.link} ${props.followingInProgress.some(id => id === props.id)? style.userFetching: style.addUser}`}
+                            className={`${style.link} ${props.followingInProgress.some(id => id === props.id) ? style.userFetching : style.addUser}`}
                             onClick={() => {
-                                props.toggleFollowingProgress(true, props.id);
-
-                                usersAPI.followUser(props.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.follow(props.id);
-                                            props.toggleFollowingProgress(false, props.id);
-                                        }
-                                    })
+                                props.follow(props.id);
                             }}
                         >
                             <img src="https://super.so/icon/light/user-plus.svg" alt=""/>

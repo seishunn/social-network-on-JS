@@ -8,6 +8,14 @@ const instance = axios.create({
     withCredentials: true,
 });
 
+export const profileAPI = {
+    me () {
+        return instance
+            .get(`auth/me`)
+            .then(response => response.data)
+    }
+}
+
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance

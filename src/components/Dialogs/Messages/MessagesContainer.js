@@ -9,15 +9,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        textChangeAction: (text) => {
-            dispatch(updateNewMessageTextActionCreator(text));
-        },
-        addItemAction: () => {
-            dispatch(addMessageActionCreator());
-        }
-    }
-}
-
-export const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
+export const MessagesContainer = connect(mapStateToProps, {
+    textChangeAction: updateNewMessageTextActionCreator,
+    addItemAction: addMessageActionCreator
+})(Messages);

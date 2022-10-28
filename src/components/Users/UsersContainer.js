@@ -1,33 +1,22 @@
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {
-    followUserActionCreator,
-    setCurrentPageActionCreator, setTotalUsersCountActionCreator,
-    setUSERActionCreator, toggleFollowingProgressActionCreator, toggleIsFetchingActionCreator,
-    unfollowUserActionCreator
+    followUserThunkCreator,
+    getUsersThunkCreator,
+    setCurrentPageActionCreator,
+    unfollowUserThunkCreator
 } from "../../redux/users-reducer";
 import React from "react";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {usersAPI} from "../../API/API";
 
 // Первая контейнерная компонента, для получения списка пользователей при вмонтировании. (2 уровень)
 export class UsersClassAPIComponent extends React.Component {
     componentDidMount = () => {
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
     onPageChanged = (page) => {
-        this.props.toggleIsFetching(true);
-        this.props.changeCurrentPage(page)
-        usersAPI.getUsers(page, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items)
-            })
+        this.props.changeCurrentPage(page);
+        this.props.getUsers(page, this.props.pageSize);
     }
     render() {
         return (
@@ -41,7 +30,6 @@ export class UsersClassAPIComponent extends React.Component {
                     currentPage={this.props.currentPage}
                     follow={this.props.followUser}
                     unfollow={this.props.unfollowUser}
-                    toggleFollowingProgress={this.props.toggleFollowingProgress}
                     followingInProgress={this.props.followingInProgress}
                 />
             </>
@@ -60,35 +48,10 @@ let mapStateToProps = (state) => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
-        followUser: (id) => {
-            dispatch(followUserActionCreator(id));
-        },
-        unfollowUser: (id) => {
-            dispatch(unfollowUserActionCreator(id));
-        },
-        setUsers: (users) => {
-            dispatch(setUSERActionCreator(users))
-        },
-        changeCurrentPage: (page) => {
-            dispatch(setCurrentPageActionCreator(page));
-        },
-        setTotalUsersCount: (totalUsersCount) => {
-            dispatch(setTotalUsersCountActionCreator(totalUsersCount))
-        },
-        toggleIsFetching: (isFetching) => {
-            dispatch(toggleIsFetchingActionCreator(isFetching))
-        }
-    }
-}
 
 export const UsersContainer = connect(mapStateToProps, {
-    followUser: followUserActionCreator,
-    unfollowUser: unfollowUserActionCreator,
-    setUsers: setUSERActionCreator,
+    followUser: followUserThunkCreator,
+    unfollowUser: unfollowUserThunkCreator,
     changeCurrentPage: setCurrentPageActionCreator,
-    setTotalUsersCount: setTotalUsersCountActionCreator,
-    toggleIsFetching: toggleIsFetchingActionCreator,
-    toggleFollowingProgress: toggleFollowingProgressActionCreator
+    getUsers: getUsersThunkCreator,
 })(UsersClassAPIComponent)
