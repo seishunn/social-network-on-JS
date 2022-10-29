@@ -9,7 +9,7 @@ export const ProfileInfo = (props) => {
             <LargeImage photo={props.profile?.photos}/>
             <div className={style.profile}>
                 <ProfileAvatar photo={props.profile?.photos}/>
-                <ProfileDescription profile={props.profile}/>
+                <ProfileDescription profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </>
     );

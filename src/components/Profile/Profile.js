@@ -5,7 +5,7 @@ import {ProfilePostsContainer} from "./ProfileInfo/ProfilePosts/ProfilePostsCont
 export const Profile = (props) => {
     return (
         <div className={style.profilePage}>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateUserStatus}/>
             <ProfilePostsContainer/>
         </div>
     );

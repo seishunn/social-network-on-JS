@@ -1,9 +1,15 @@
 import React, {Component} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserThunkCreator} from "../../redux/profile-reducer";
+import {
+    getUserThunkCreator,
+    getUserStatusThunkCreator,
+    updateUserStatusThunkCreator
+} from "../../redux/profile-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {Navigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
+import {compose} from "redux";
 
 function WithRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -22,20 +28,15 @@ function WithRouter(Component) {
 class ProfileContainerAPIComponent extends React.Component {
 
     componentDidMount() {
-        let id = this.props.params.id;
-        if (!id) {
-            id = 26430;
+        let userId = this.props.params.id;
+        if (!userId) {
+            userId = 26430;
         }
-        this.props.getUser(id);
+        this.props.getUser(userId);
+        this.props.getUserStatus(userId);
     }
 
     render() {
-        if (!this.props.isAuth) {
-            return (
-                <Navigate to={'/login'}/>
-            )
-        }
-
         if (this.props.isFetching || !this.props.profile) {
             return <Preloader/>
         } else {
@@ -50,10 +51,17 @@ let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         isFetching: state.profilePage.isFetching,
-        isAuth: state.auth.isAuth
+        status: state.profilePage.status,
     }
 }
 
-export const ProfileContainer = connect(mapStateToProps, {
-    getUser: getUserThunkCreator
-})(WithRouter(ProfileContainerAPIComponent))
+export const ProfileContainer = compose(
+    connect(mapStateToProps,
+        {
+            getUser: getUserThunkCreator,
+            getUserStatus: getUserStatusThunkCreator,
+            updateUserStatus: updateUserStatusThunkCreator
+        }),
+    withAuthRedirect,
+    WithRouter
+)(ProfileContainerAPIComponent)

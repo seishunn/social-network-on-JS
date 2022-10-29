@@ -4,7 +4,7 @@ import {TextItem} from "../../../TextItem/TextItem";
 
 
 export const ProfilePosts = (props) => {
-    let postsElements = props.posts.map(post => <li key={post.id}><TextItem {...post} avatar={props.profile.photos.small}/></li>)
+    let postsElements = props.posts.map(post => <TextItem {...post} avatar={props.profile.photos.small} key={post.id}/>)
 
     return (
         <div className={style.createPost}>

@@ -8,6 +8,8 @@ import {
 } from "../../redux/users-reducer";
 import React from "react";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 // Первая контейнерная компонента, для получения списка пользователей при вмонтировании. (2 уровень)
 export class UsersClassAPIComponent extends React.Component {
@@ -49,9 +51,12 @@ let mapStateToProps = (state) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-    followUser: followUserThunkCreator,
-    unfollowUser: unfollowUserThunkCreator,
-    changeCurrentPage: setCurrentPageActionCreator,
-    getUsers: getUsersThunkCreator,
-})(UsersClassAPIComponent)
+export const UsersContainer = compose(
+    connect(mapStateToProps, {
+        followUser: followUserThunkCreator,
+        unfollowUser: unfollowUserThunkCreator,
+        changeCurrentPage: setCurrentPageActionCreator,
+        getUsers: getUsersThunkCreator,
+    }),
+    withAuthRedirect
+)(UsersClassAPIComponent)

@@ -1,4 +1,5 @@
 import style from './ProfileDescription.module.css';
+import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 
 export const ProfileDescription = (props) => {
     return (
@@ -7,20 +8,7 @@ export const ProfileDescription = (props) => {
                 <div className={style.name}>
                     <div>{props.profile?.fullName || "Anonymous"}</div>
                 </div>
-                <div className={style.status}>{props.profile?.aboutMe || "nothing"}</div>
-                <div className={style.infoFooter}>
-                    <ul>
-                        <li>
-                            <div>83</div>
-                            <span>друга</span></li>
-                        <li>
-                            <div>92</div>
-                            <span>подписчика</span></li>
-                        <li>
-                            <div>3</div>
-                            <span>поста</span></li>
-                    </ul>
-                </div>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     );
