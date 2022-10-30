@@ -1,16 +1,19 @@
 import style from "./Dialog.module.css";
 import {NavLink} from "react-router-dom";
+import DiscordLogo from "../../../assets/c09a43a372ba81e3018c3151d4ed4773.png"
 
-export const Dialog = ({name, id, ...props}) => {
-    let path = `/dialogs/${id}`;
+export const Dialog = (props) => {
+    let path = `/dialogs/${props.id}`;
 
     return (
         <NavLink to={path} className={({isActive, ...obj}) => isActive? (`${style.dialog} ${style.active}`) : (style.dialog)}>
             <div className={style.avatar}>
-                <img src="https://i.pinimg.com/originals/96/5f/53/965f53b4c0bb836ff10cec9692c04aa8.jpg" alt=""/>
+                <img src={
+                    props.photos.small || props.photos.large || DiscordLogo
+                } alt=""/>
             </div>
             <div className={style.name}>
-                {name}
+                {props.userName}
             </div>
         </NavLink>
     );

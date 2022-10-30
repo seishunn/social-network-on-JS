@@ -1,7 +1,7 @@
 # О проекте
 Данная социальная сеть написана с использованием API https://social-network.samuraijs.com/
 .Тестовый аккаунт для проверки работоспособности сайт  
->#### Login
+>#### InputBlock
 >`kigopil136@24rumen.com`
 >#### Password
 >`123123123q`

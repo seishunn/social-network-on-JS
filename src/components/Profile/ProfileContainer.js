@@ -7,23 +7,11 @@ import {
     updateUserStatusThunkCreator
 } from "../../redux/profile-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {useParams} from "react-router-dom";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
+import {withRouter} from "../../HOC/withRouter";
 
-function WithRouter(Component) {
-    function ComponentWithRouterProp(props) {
-        let params = useParams()
-        return (
-            <Component
-                {...props}
-                params={params}
-            />
-        );
-    }
 
-    return ComponentWithRouterProp;
-}
 
 class ProfileContainerAPIComponent extends React.Component {
 
@@ -31,6 +19,7 @@ class ProfileContainerAPIComponent extends React.Component {
         let userId = this.props.params.id;
         if (!userId) {
             userId = 26430;
+            // userId = 24375;
         }
         this.props.getUser(userId);
         this.props.getUserStatus(userId);
@@ -63,5 +52,5 @@ export const ProfileContainer = compose(
             updateUserStatus: updateUserStatusThunkCreator
         }),
     withAuthRedirect,
-    WithRouter
+    withRouter
 )(ProfileContainerAPIComponent)

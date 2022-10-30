@@ -8,12 +8,23 @@ const instance = axios.create({
     withCredentials: true,
 });
 
-export const profileAPI = {
+export const authAPI = {
     me () {
         return instance
             .get(`auth/me`)
             .then(response => response.data)
     },
+    login (formData) {
+        return instance
+            .post(`auth/login`, {
+                email: formData.login,
+                password: formData.password,
+            })
+            .then(response => response.data)
+    }
+}
+
+export const profileAPI = {
     getUserProfile(userId) {
         return instance
             .get(`profile/${userId}`)
@@ -49,4 +60,29 @@ export const usersAPI = {
             .delete(`follow/${userId}`)
             .then(response => response.data);
     },
+
+}
+
+export const dialogsAPI = {
+    sendMessageToUser(userId = 24375) {
+        return instance
+            .post(`dialogs/${userId}/messages`, {
+                body: "Hello, World"
+            })
+    },
+    getUserDialogs() {
+        return instance
+            .get(`dialogs`)
+            .then(response => {
+                console.log(response.data);
+                return response.data;
+            })
+    },
+    getMessagesWithFriend(userId) {
+        return instance
+            .get(`dialogs/${userId}/messages`)
+            .then(response => {
+                return response.data;
+            })
+    }
 }

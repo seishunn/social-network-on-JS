@@ -1,4 +1,4 @@
-import {profileAPI} from "../API/API";
+import {authAPI} from "../API/API";
 
 const SET_USER_DATA = "SET_USER_DATA";
 
@@ -28,10 +28,23 @@ export const setUserDataActionCreator = (user) => ({type: SET_USER_DATA, payload
 
 export const setUserDataThunkCreator = () => {
     return dispatch => {
-        profileAPI.me()
+        authAPI.me()
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(setUserDataActionCreator(data.data));
+                }
+            })
+    }
+}
+
+export const loginThunkCreator = (formData) => {
+    return (dispatch) => {
+        authAPI.login(formData)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setUserDataThunkCreator());
+                } else {
+                    console.warn("Вы не смогли авторизоваться")
                 }
             })
     }

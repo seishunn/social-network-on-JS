@@ -19,7 +19,7 @@ export const Navigation = (props) => {
             <div>
                 <div className={style.authList}>
                     {props.isAuth?
-                        <NavigationItem url={'https://super.so/icon/light/log-out.svg'} href={'/logOut'}/>
+                        <NavigationItem url={'https://super.so/icon/light/log-out.svg'} href={'/logIn'}/>
                         :<NavigationItem url={'https://super.so/icon/light/log-in.svg'} href={'/logIn'}/>
                     }
                 </div>

@@ -5,7 +5,7 @@ import {Messages} from "./Messages";
 const mapStateToProps = (state) => {
     return {
         messages: state.dialogsPage.messages,
-        value: state.dialogsPage.newMessageText
+        value: state.dialogsPage.newMessageText,
     }
 }
 

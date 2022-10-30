@@ -10,6 +10,7 @@ import React from "react";
 import {Preloader} from "../../common/Preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
+import {dialogsAPI} from "../../API/API";
 
 // Первая контейнерная компонента, для получения списка пользователей при вмонтировании. (2 уровень)
 export class UsersClassAPIComponent extends React.Component {

@@ -1,0 +1,7 @@
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(54,57,63);
+}
