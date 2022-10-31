@@ -23,6 +23,12 @@ export const User = (props) => {
                     </div>
                 </div>
                 <div className={style.userRight} onClick={e => e.preventDefault()}>
+                    <NavLink
+                        to={`/dialogs/${props.id}`}
+                        className={`${style.link} ${style.userFetching}`}
+                    >
+                        <img src="https://super.so/icon/light/message-square.svg" alt=""/>
+                    </NavLink>
                     {props.followed
                         ? <button
                             disabled={props.followingInProgress.some(id => id === props.id)}

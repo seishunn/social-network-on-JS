@@ -1,4 +1,4 @@
-import {dialogsAPI} from "../API/API";
+import {dialogsAPI, profileAPI} from "../API/API";
 
 const ADD_MESSAGE = "ADD-MESSAGE";
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
@@ -36,10 +36,10 @@ export const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE: {
             let newMessage = {
-                id: 19,
-                myMessage: true,
                 message: state.newMessageText,
-                name: "Anonymous"
+                name: action.payload.name,
+                addedDate: action.payload.addedDate,
+                senderId: action.payload.authId,
             };
 
             return {
@@ -63,7 +63,20 @@ export const dialogsReducer = (state = initialState, action) => {
         case SET_DIALOG: {
             return {
                 ...state,
-                dialog: action.payload
+                dialog: {...action.payload}
+            }
+        }
+        case SET_MESSAGES: {
+            let messages = action.payload.map(m => ({
+                id: m.id,
+                message: m.body,
+                name: m.senderName,
+                addedDate: m.addedAt,
+                senderId: m.senderId
+            }))
+            return {
+                ...state,
+                messages: messages
             }
         }
         default:
@@ -71,10 +84,11 @@ export const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
+export const addMessageActionCreator = (authId, name, addedDate) => ({type: ADD_MESSAGE, payload: {authId, name, addedDate}});
 export const updateNewMessageTextActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, payload: text});
 export const setDialogsActionCreator = (users) => ({type: SET_DIALOGS, payload: users});
 export const setDialogActionCreator = (user) => ({type: SET_DIALOG, payload: user});
+export const setMessagesActionCreator = (messages) => ({type: SET_MESSAGES, payload: messages});
 
 export const getDialogsThunkCreator = () => {
     return (dispatch) => {
@@ -87,7 +101,24 @@ export const getDialogsThunkCreator = () => {
 
 export const getMessagesThunkCreator = (userId) => {
     return (dispatch) => {
+        profileAPI.getUserProfile(userId)
+            .then(data => dispatch(setDialogActionCreator(data)));
+
         dialogsAPI.getMessagesWithFriend(userId)
-            .then(message => console.log(message))
+            .then(data => {
+                return data
+            })
+            .then(data => dispatch(setMessagesActionCreator(data.items)))
+    }
+}
+
+export const sendMessageToUserThunkCreator = (user, message) => {
+    return (dispatch) => {
+        dialogsAPI.sendMessageToUser(user.userId, message)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(addMessageActionCreator(user.authId, user.name, new Date()))
+                }
+            })
     }
 }

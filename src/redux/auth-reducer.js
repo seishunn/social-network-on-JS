@@ -49,3 +49,5 @@ export const loginThunkCreator = (formData) => {
             })
     }
 }
+
+export const setUserAvatarThunkCreator = () => {}

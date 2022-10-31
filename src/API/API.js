@@ -64,19 +64,17 @@ export const usersAPI = {
 }
 
 export const dialogsAPI = {
-    sendMessageToUser(userId = 24375) {
+    sendMessageToUser(userId, message) {
         return instance
             .post(`dialogs/${userId}/messages`, {
-                body: "Hello, World"
+                body: message
             })
+            .then(response => response.data)
     },
     getUserDialogs() {
         return instance
             .get(`dialogs`)
-            .then(response => {
-                console.log(response.data);
-                return response.data;
-            })
+            .then(response => response.data)
     },
     getMessagesWithFriend(userId) {
         return instance

@@ -4,9 +4,16 @@ export const AddItemArea = ({userName, value, textChangeAction, addItemAction, .
     let textChange = (text) => {
         textChangeAction(text);
     }
+
     let addItem = () => {
-        addItemAction();
+        const user = {
+            authId: props.authId,
+            userId: props.userId,
+            name:props.senderName,
+        }
+        addItemAction(user, value);
     }
+
     return (
         <div className={style.addItemInput}>
             <div className={style.scrollBar}>

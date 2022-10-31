@@ -42,7 +42,7 @@ export const profileReducer = (state = initialState, action) => {
         case SET_USER_PROFILE: {
             return {
                 ...state,
-                profile: action.payload,
+                profile: {...action.payload},
             }
         }
         case TOGGLE_IS_FETCHING: {
