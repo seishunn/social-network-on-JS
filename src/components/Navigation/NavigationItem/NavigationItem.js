@@ -12,7 +12,7 @@ export const NavigationIndicator = ({url, ...props}) => {
     )
 }
 
-export const NavigationItem = ({url, avatar, href, ...props}) => {
+export const NavigationItem = ({url, avatar, href, onClick, ...props}) => {
     const getClasses = ({isActive, isPending, ...props}) => {
         const classes = [style.link];
 
@@ -32,7 +32,7 @@ export const NavigationItem = ({url, avatar, href, ...props}) => {
     }
 
     return (
-        <NavLink className={(object) => getClasses(object)} to={href}>
+        <NavLink className={(object) => getClasses(object)} to={href} onClick={onClick}>
              <NavigationIndicator url={url} className={style.active}/>
         </NavLink>
     );

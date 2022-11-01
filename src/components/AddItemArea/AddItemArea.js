@@ -1,34 +1,26 @@
 import style from "./AddItemArea.module.css";
+import {Field} from "redux-form";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
-export const AddItemArea = ({userName, value, textChangeAction, addItemAction, ...props}) => {
-    let textChange = (text) => {
-        textChangeAction(text);
-    }
+const maxLength100 = maxLengthCreator(100);
 
-    let addItem = () => {
-        const user = {
-            authId: props.authId,
-            userId: props.userId,
-            name:props.senderName,
-        }
-        addItemAction(user, value);
-    }
-
+export const AddItemArea = (props) => {
     return (
         <div className={style.addItemInput}>
             <div className={style.scrollBar}>
                 <div className={style.textArea}>
-                    <div>
-                        <textarea
-                            placeholder={userName ? `Написать @${userName}` : "Добавить пост"}
-                            value={value}
-                            onChange={e => textChange(e.target.value)}
-                        />
-                    </div>
+                    <Field
+                        validate={[required, maxLength100]}
+                        component={Textarea}
+                        name={props.name}
+                        placeholder={props.userName ? `Написать @${props.userName ?? "User"}` : "Добавить пост"}
+                        value={props.value}
+                    />
                 </div>
-                <div className={style.btnAdd}>
-                    <div onClick={addItem}>+</div>
-                </div>
+                <button className={style.btnAdd}>
+                    <div>+</div>
+                </button>
             </div>
         </div>
     );

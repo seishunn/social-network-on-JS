@@ -15,11 +15,18 @@ export const authAPI = {
             .then(response => response.data)
     },
     login (formData) {
+        debugger
         return instance
             .post(`auth/login`, {
                 email: formData.login,
                 password: formData.password,
+                captcha: formData.captchaText || ""
             })
+            .then(response => response.data)
+    },
+    logout () {
+        return instance
+            .delete(`auth/login`)
             .then(response => response.data)
     }
 }
@@ -82,5 +89,14 @@ export const dialogsAPI = {
             .then(response => {
                 return response.data;
             })
+    }
+}
+
+export const securityAPI = {
+    getCaptcha () {
+        debugger
+        return instance
+            .get('security/get-captcha-url')
+            .then(response => response.data)
     }
 }

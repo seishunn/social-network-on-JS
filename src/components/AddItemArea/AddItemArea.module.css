@@ -68,6 +68,9 @@
     position: absolute;
     right: 5px;
     bottom: 5px;
+    background: none;
+    background: rgb(32,34,37);
+    border-radius: 50%;
 }
 .btnAdd div {
     display: flex;
@@ -78,7 +81,7 @@
     width: 30px;
     max-height: 30px;
     height: 30px;
-    background: rgb(32,34,37);
     font-size: 20px;
     cursor: pointer;
+    color: #fff;
 }

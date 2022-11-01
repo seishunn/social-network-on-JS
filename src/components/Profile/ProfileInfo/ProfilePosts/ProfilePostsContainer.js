@@ -1,4 +1,4 @@
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/profile-reducer";
+import {addPostActionCreator} from "../../../../redux/profile-reducer";
 import {ProfilePosts} from "./ProfilePosts";
 import {connect} from "react-redux";
 
@@ -11,7 +11,6 @@ let mapStateToProps = (state) => {
 };
 
 const ProfilePostsContainer = connect(mapStateToProps, {
-    textChangeAction: updateNewPostTextActionCreator,
     addItemAction: addPostActionCreator
 })(ProfilePosts);
 

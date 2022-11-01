@@ -1,4 +1,5 @@
 import style from "./MessagesUserBar.module.css";
+import {NavLink} from "react-router-dom";
 
 export const MessagesUserBar = (props) => {
     return (
@@ -6,7 +7,7 @@ export const MessagesUserBar = (props) => {
             <div className={style.messagePreName}>@</div>
             <div className={style.messageName}>{props.fullName}</div>
             <div className={style.messageAka}>AKA</div>
-            <div>{props.fullName}</div>
+            <NavLink to={`/profile/${props.userId}`}>{props.fullName}</NavLink>
         </div>
     );
 }

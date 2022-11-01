@@ -1,0 +1,24 @@
+.submit {
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 3px;
+    padding: 2px 16px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(88,101,242);
+    color: #fff;
+    height: 44px;
+    min-width: 130px;
+    min-height: 44px;
+    width: 100%;
+    transition: all .3s ease;
+}
+
+.submit:hover {
+    background: rgb(71,82,196);
+    color: rgb(251,251,254);
+    transition: all .3s ease;
+}

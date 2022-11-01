@@ -1,0 +1,16 @@
+.formControl, .formControlInput {
+    position: relative;
+}
+
+.formControl > span,
+.formControlInput > span{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 5px;
+    background: rgb(235,76,66);
+    color: #fff;
+    padding: 2px 5px;
+    font-size: 10px;
+    text-transform: lowercase;
+}
