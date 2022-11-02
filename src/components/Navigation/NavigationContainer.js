@@ -1,13 +1,9 @@
 import {Navigation} from "./Navigation";
 import {connect} from "react-redux";
 import React from "react";
-import {logoutThunkCreator, setUserDataThunkCreator} from "../../redux/auth-reducer";
+import {logoutThunkCreator} from "../../redux/auth-reducer";
 
 class NavigationContainer extends React.Component {
-    componentDidMount() {
-        this.props.setUserData();
-    }
-
     render () {
         return (
             <Navigation {...this.props}/>
@@ -23,6 +19,5 @@ let mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    setUserData: setUserDataThunkCreator,
     logout: logoutThunkCreator,
 })(NavigationContainer)

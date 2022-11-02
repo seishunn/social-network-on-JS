@@ -13,7 +13,7 @@ export const NavigationIndicator = ({url, ...props}) => {
 }
 
 export const NavigationItem = ({url, avatar, href, onClick, ...props}) => {
-    const getClasses = ({isActive, isPending, ...props}) => {
+    const getClasses = (isActive, isPending) => {
         const classes = [style.link];
 
         if (avatar) {
@@ -28,11 +28,15 @@ export const NavigationItem = ({url, avatar, href, onClick, ...props}) => {
             classes.push(style.noactive)
         }
 
+        if (props.redLink) {
+            classes.push(style.redLink)
+        }
+
         return classes.join(" ");
     }
 
     return (
-        <NavLink className={(object) => getClasses(object)} to={href} onClick={onClick}>
+        <NavLink className={({isActive, isPending}) => getClasses(isActive, isPending)} to={href} onClick={onClick}>
              <NavigationIndicator url={url} className={style.active}/>
         </NavLink>
     );

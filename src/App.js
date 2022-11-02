@@ -5,48 +5,55 @@ import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {LoginContainer} from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Component} from "react";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {withRouter} from "./HOC/withRouter";
+import {initializeAppThunkCreator} from "./redux/app-reducer";
+import {Preloader} from "./common/Preloader/Preloader";
 
-const App = ({store, ...props}) => {
-    return (
-        <Router>
-            <div className="App">
-                <Navigation/>
-                <div className={"main"}>
-                    <Routes>
-                        <Route path={"/profile"}
-                               element={
-                                   <ProfileContainer
-                                       state={store.getState().profilePage}
-                                   />}
-                        />
-                        <Route path={"/profile/:id"}
-                               element={
-                                   <ProfileContainer
-                                       state={store.getState().profilePage}
-                                   />}
-                        />
-                        <Route path={"/dialogs"}
-                               element={
-                                   <DialogsContainer
-                                       state={store.getState().dialogsPage}
-                                   />}
-                        />
-                        <Route path={"/dialogs/:id"}
-                               element={
-                                   <DialogsContainer
-                                       state={store.getState().dialogsPage}
-                                   />}
-                        />
-                        <Route path={"/users/*"}
-                               element={<UsersContainer/>}/>
-                        <Route path={"/login/*"}
-                               element={<LoginContainer/>}
-                        />
-                    </Routes>
-                </div>
-            </div>
-        </Router>
-    );
+class App extends Component {
+    componentDidMount() {
+        this.props.initializeApp();
+    }
+
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        } else {
+            return (
+                <Router>
+                    <div className="App">
+                        <Navigation/>
+                        <div className={"main"}>
+                            <Routes>
+                                <Route path={"/profile"} element={<ProfileContainer/>}/>
+                                <Route path={"/profile/:id"} element={<ProfileContainer/>}/>
+
+                                <Route path={"/dialogs"} element={<DialogsContainer/>}/>
+                                <Route path={"/dialogs/:id"} element={<DialogsContainer/>}/>
+
+                                <Route path={"/users/*"} element={<UsersContainer/>}/>
+
+                                <Route path={"/login/*"} element={<LoginContainer/>}/>
+                            </Routes>
+                        </div>
+                    </div>
+                </Router>
+            );
+        }
+    }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+
+export default compose(
+    withRouter,
+    connect(mapStateToProps, {
+        initializeApp: initializeAppThunkCreator
+    })
+)(App)

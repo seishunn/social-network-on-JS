@@ -33,17 +33,17 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setUserDataActionCreator = (user, isAuth) => ({type: SET_USER_DATA, payload: {user, isAuth}});
+export const setAuthUserDataActionCreator = (user, isAuth) => ({type: SET_USER_DATA, payload: {user, isAuth}});
 export const setCaptchaActionCreator = (url) => ({type: SET_CAPTCHA, payload: url});
 
-export const setUserDataThunkCreator = () => {
+export const setAuthUserDataThunkCreator = () => {
     return dispatch => {
-        authAPI.me()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setUserDataActionCreator(data.data, true));
-                }
-            })
+        return authAPI.me()
+                .then(data => {
+                    if (data.resultCode === 0) {
+                        dispatch(setAuthUserDataActionCreator(data.data, true));
+                    }
+                })
     }
 }
 
@@ -60,8 +60,12 @@ export const loginThunkCreator = (formData) => {
         authAPI.login(formData)
             .then(data => {
                 if (data.resultCode === 0) {
-                    dispatch(setUserDataThunkCreator());
+                    dispatch(setAuthUserDataThunkCreator());
+                    dispatch(setCaptchaActionCreator(null))
                 } else {
+                    if (data.resultCode === 10) {
+                        dispatch(getCaptcha())
+                    }
                     let message = data.messages.length > 0 ? data.messages[0] : "Unknown error";
                     dispatch(stopSubmit("login", {_error: message}));
                 }
@@ -74,7 +78,7 @@ export const logoutThunkCreator = () => {
         authAPI.logout()
             .then(data => {
                 if (data.resultCode === 0) {
-                    dispatch(setUserDataActionCreator({
+                    dispatch(setAuthUserDataActionCreator({
                         id: null,
                         email: null,
                         login: null,
@@ -85,4 +89,5 @@ export const logoutThunkCreator = () => {
     }
 }
 
-export const setUserAvatarThunkCreator = () => {}
+export const setUserAvatarThunkCreator = () => {
+}

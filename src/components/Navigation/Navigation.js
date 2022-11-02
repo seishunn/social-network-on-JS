@@ -21,9 +21,14 @@ export const Navigation = (props) => {
                     {props.isAuth?
                         <NavigationItem
                             url={'https://super.so/icon/light/log-out.svg'}
+                            redLink
+                            href={'/logIn'}
                             onClick={props.logout}
                         />
-                        :<NavigationItem url={'https://super.so/icon/light/log-in.svg'} href={'/logIn'}/>
+                        :<NavigationItem
+                            url={'https://super.so/icon/light/log-in.svg'}
+                            href={'/logIn'}
+                        />
                     }
                 </div>
             </div>

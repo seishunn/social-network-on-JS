@@ -15,7 +15,6 @@ export const authAPI = {
             .then(response => response.data)
     },
     login (formData) {
-        debugger
         return instance
             .post(`auth/login`, {
                 email: formData.login,
@@ -94,7 +93,6 @@ export const dialogsAPI = {
 
 export const securityAPI = {
     getCaptcha () {
-        debugger
         return instance
             .get('security/get-captcha-url')
             .then(response => response.data)

@@ -47,7 +47,7 @@ export const Messages = (props) => {
             </div>
             <DialogReduxForm
                 userName={props.dialog?.fullName ?? "User"}
-                senderName={props.profile.fullName}
+                senderName={props.profile?.fullName}
                 authId={props.authId}
                 userId={props.dialog?.userId}
                 sendMessageToUser={props.sendMessageToUser}

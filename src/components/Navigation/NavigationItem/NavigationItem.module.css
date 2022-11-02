@@ -69,3 +69,11 @@
     left: 0;
     object-fit: cover;
 }
+
+.link.usualLink.redLink:hover div,
+.link.avatarLink.redLink:hover div,
+.usualLink.active div{
+    background: rgb(235,76,66);
+    border-radius: 18px;
+    transition: all 0.2s ease;
+}

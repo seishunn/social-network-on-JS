@@ -8,7 +8,6 @@ import {
 } from "../../redux/dialogs-reducer";
 import {withRouter} from "../../HOC/withRouter";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
-import {setUserDataThunkCreator} from "../../redux/auth-reducer";
 import {getUserThunkCreator} from "../../redux/profile-reducer";
 
 let mapStateToProps = (state) => {
@@ -25,7 +24,6 @@ class DialogsContainer extends React.Component {
         if (this.props.params.id) {
             this.props.getMessages(this.props.params.id);
         }
-        await this.props.setUserData();
         await this.props.getUser(this.props.authId);
     }
 
@@ -46,7 +44,6 @@ export default compose(
     connect(mapStateToProps, {
         getDialogs: getDialogsThunkCreator,
         getMessages: getMessagesThunkCreator,
-        setUserData: setUserDataThunkCreator,
         getUser: getUserThunkCreator,
     }),
     withRouter,

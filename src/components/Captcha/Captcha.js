@@ -7,7 +7,7 @@ export const Captcha = (props) => {
             <div className={style.captcha}>
                 <div className={style.captchaImage}>
                     <img
-                        src="https://social-network.samuraijs.com/HelpApp/HelpApp/Captcha?w=200&h=100&c=t6gPwYI2H7I2JlcQEABeOA%3D%3D"
+                        src={props.captchaURL}
                         alt=""/>
                 </div>
                 <InputBlock

@@ -27,7 +27,7 @@ const LoginForm = (props) => {
                     name={"password"}
                 />
             </div>
-            {props.captcha && <Captcha/>}
+            {props.captcha && <Captcha captchaURL={props.captcha}/>}
             {props.error && <div className={style.error}>
                 {props.error}
             </div>}
