@@ -25,6 +25,7 @@ const PostsReduxForm = reduxForm({
     form: "posts"
 })(PostsForm)
 
+
 export const ProfilePosts = (props) => {
     let postsElements = props.posts.map(post => <TextItem {...post} avatar={props.profile.photos.small} key={post.id}/>)
 
