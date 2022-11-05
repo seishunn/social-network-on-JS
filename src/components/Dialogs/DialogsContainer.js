@@ -9,12 +9,14 @@ import {
 import {withRouter} from "../../HOC/withRouter";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {getUserThunkCreator} from "../../redux/profile-reducer";
+import {Preloader} from "../../common/Preloader/Preloader";
 
 let mapStateToProps = (state) => {
     return {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
-        authId: state.auth.id
+        authId: state.auth.id,
+        isFetching: state.dialogsPage.isFetching
     }
 }
 
@@ -34,6 +36,9 @@ class DialogsContainer extends React.Component {
     }
 
     render() {
+        if (this.props.isFetching) {
+            return <Preloader/>
+        }
         return (
             <Dialogs {...this.props}/>
         );

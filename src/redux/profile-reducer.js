@@ -1,10 +1,10 @@
 import {profileAPI} from "../API/API";
 
-const ADD_POST = "ADD_POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_USER_STATUS = "SET_USER_STATUS";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const ADD_POST = "profile-reducer/ADD_POST";
+const UPDATE_NEW_POST_TEXT = "profile-reducer/UPDATE_NEW_POST_TEXT";
+const SET_USER_PROFILE = "profile-reducer/SET_USER_PROFILE";
+const SET_USER_STATUS = "profile-reducer/SET_USER_STATUS";
+const TOGGLE_IS_FETCHING = "profile-reducer/TOGGLE_IS_FETCHING";
 
 const initialState = {
     posts: [
@@ -65,32 +65,30 @@ export let setUserStatusActionCreator = (status) => ({type: SET_USER_STATUS, pay
 export let toggleIsFetchingActionCreator = (isFetching) => ({type: TOGGLE_IS_FETCHING, payload: isFetching})
 
 export const getUserThunkCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetchingActionCreator(true));
 
-        profileAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(toggleIsFetchingActionCreator(false));
-                dispatch(setUserProfileActionCreator(data));
-            })
+        let data = await profileAPI.getUserProfile(userId);
+        dispatch(toggleIsFetchingActionCreator(false));
+        dispatch(setUserProfileActionCreator(data));
     }
 }
 
 export const getUserStatusThunkCreator = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId)
-            .then(status => dispatch(setUserStatusActionCreator(status)))
+    return async (dispatch) => {
+        let status = await profileAPI.getStatus(userId);
+
+        dispatch(setUserStatusActionCreator(status));
     }
 }
 
 export const updateUserStatusThunkCreator = (status) => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setUserStatusActionCreator(status))
-                }
-            })
+    return async (dispatch) => {
+        let data = await profileAPI.updateStatus(status);
+
+        if (data.resultCode === 0) {
+            dispatch(setUserStatusActionCreator(status))
+        }
     }
 }
 

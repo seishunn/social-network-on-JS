@@ -1,8 +1,8 @@
 import {authAPI, securityAPI} from "../API/API";
 import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = "SET_USER_DATA";
-const SET_CAPTCHA = "SET_CAPTCHA";
+const SET_USER_DATA = "auth-reducer/SET_USER_DATA";
+const SET_CAPTCHA = "auth-reducer/SET_CAPTCHA";
 
 let initialState = {
     id: null,
@@ -37,57 +37,50 @@ export const setAuthUserDataActionCreator = (user, isAuth) => ({type: SET_USER_D
 export const setCaptchaActionCreator = (url) => ({type: SET_CAPTCHA, payload: url});
 
 export const setAuthUserDataThunkCreator = () => {
-    return dispatch => {
-        return authAPI.me()
-                .then(data => {
-                    if (data.resultCode === 0) {
-                        dispatch(setAuthUserDataActionCreator(data.data, true));
-                    }
-                })
+    return async (dispatch) => {
+        let data = await authAPI.me();
+
+        if (data.resultCode === 0) {
+            dispatch(setAuthUserDataActionCreator(data.data, true));
+        }
     }
 }
 
 export const getCaptcha = () => {
-    return (dispatch) => {
-        securityAPI.getCaptcha()
-            .then(response => dispatch(setCaptchaActionCreator(response.url)))
+    return async (dispatch) => {
+        let data = await securityAPI.getCaptcha();
+        dispatch(setCaptchaActionCreator(data.url));
     }
 }
 
 export const loginThunkCreator = (formData) => {
+    return async (dispatch) => {
+        let data = await authAPI.login(formData);
 
-    return (dispatch) => {
-        authAPI.login(formData)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthUserDataThunkCreator());
-                    dispatch(setCaptchaActionCreator(null))
-                } else {
-                    if (data.resultCode === 10) {
-                        dispatch(getCaptcha())
-                    }
-                    let message = data.messages.length > 0 ? data.messages[0] : "Unknown error";
-                    dispatch(stopSubmit("login", {_error: message}));
-                }
-            })
+        if (data.resultCode === 0) {
+            dispatch(setAuthUserDataThunkCreator());
+            dispatch(setCaptchaActionCreator(null))
+        } else {
+            if (data.resultCode === 10) {
+                dispatch(getCaptcha())
+            }
+            let message = data.messages.length > 0 ? data.messages[0] : "Unknown error";
+            dispatch(stopSubmit("login", {_error: message}));
+        }
     }
 }
 
 export const logoutThunkCreator = () => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthUserDataActionCreator({
-                        id: null,
-                        email: null,
-                        login: null,
-                        isFetching: false,
-                    }, false))
-                }
-            })
-    }
-}
+    return async (dispatch) => {
+        let data = await authAPI.logout();
 
-export const setUserAvatarThunkCreator = () => {
+        if (data.resultCode === 0) {
+            dispatch(setAuthUserDataActionCreator({
+                id: null,
+                email: null,
+                login: null,
+                isFetching: false,
+            }, false))
+        }
+    }
 }

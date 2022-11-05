@@ -1,6 +1,6 @@
 import './App.css';
 import Navigation from "./components/Navigation/NavigationContainer";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {LoginContainer} from "./components/Login/Login";
@@ -22,24 +22,22 @@ class App extends Component {
             return <Preloader/>
         } else {
             return (
-                <Router>
-                    <div className="App">
-                        <Navigation/>
-                        <div className={"main"}>
-                            <Routes>
-                                <Route path={"/profile"} element={<ProfileContainer/>}/>
-                                <Route path={"/profile/:id"} element={<ProfileContainer/>}/>
+                <div className="App">
+                    <Navigation/>
+                    <div className={"main"}>
+                        <Routes>
+                            <Route path={"/profile"} element={<ProfileContainer/>}/>
+                            <Route path={"/profile/:id"} element={<ProfileContainer/>}/>
 
-                                <Route path={"/dialogs"} element={<DialogsContainer/>}/>
-                                <Route path={"/dialogs/:id"} element={<DialogsContainer/>}/>
+                            <Route path={"/dialogs"} element={<DialogsContainer/>}/>
+                            <Route path={"/dialogs/:id"} element={<DialogsContainer/>}/>
 
-                                <Route path={"/users/*"} element={<UsersContainer/>}/>
+                            <Route path={"/users/*"} element={<UsersContainer/>}/>
 
-                                <Route path={"/login/*"} element={<LoginContainer/>}/>
-                            </Routes>
-                        </div>
+                            <Route path={"/login/*"} element={<LoginContainer/>}/>
+                        </Routes>
                     </div>
-                </Router>
+                </div>
             );
         }
     }

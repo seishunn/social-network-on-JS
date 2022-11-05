@@ -4,6 +4,7 @@ import {MessagesUserBar} from "./MessagesUserBar/MessagesUserBar";
 import {AddItemArea} from "../../AddItemArea/AddItemArea";
 import DiscordLogo from "../../../assets/c09a43a372ba81e3018c3151d4ed4773.png";
 import {reduxForm} from "redux-form";
+import {Preloader} from "../../../common/Preloader/Preloader";
 
 const DialogForm = (props) => {
     const onSubmit = (formData) => {
@@ -34,6 +35,9 @@ const DialogReduxForm = reduxForm({
 })(DialogForm)
 
 export const Messages = (props) => {
+    if (props.messagesIsFetching) {
+        return <Preloader/>
+    }
     return (
         <div className={style.messagesPage}>
             <MessagesUserBar fullName={props.dialog?.fullName ?? "User"} userId={props.dialog?.userId}/>

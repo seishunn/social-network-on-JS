@@ -1,14 +1,18 @@
 import {dialogsAPI, profileAPI} from "../API/API";
 
-const ADD_MESSAGE = "ADD-MESSAGE";
-const SET_DIALOGS = "SET_DIALOGS";
-const SET_DIALOG = "SET_DIALOG";
-const SET_MESSAGES = "SET_MESSAGES";
+const ADD_MESSAGE = "dialogs-reducer/ADD-MESSAGE";
+const SET_DIALOGS = "dialogs-reducer/SET_DIALOGS";
+const SET_DIALOG = "dialogs-reducer/SET_DIALOG";
+const SET_MESSAGES = "dialogs-reducer/SET_MESSAGES";
+const TOGGLE_IS_FETCHING = "dialogs-reducer/TOGGLE_IS_FETCHING";
+const TOGGLE_MESSAGES_IS_FETCHING = "dialogs-reducer/TOGGLE_MESSAGES_IS_FETCHING";
 
 const initialState = {
     messages: [],
     dialogs: [],
     dialog: null,
+    isFetching: false,
+    messagesIsFetching: false
 }
 
 export const dialogsReducer = (state = initialState, action) => {
@@ -51,45 +55,61 @@ export const dialogsReducer = (state = initialState, action) => {
                 messages: messages
             }
         }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.payload
+            }
+        }
+        case TOGGLE_MESSAGES_IS_FETCHING: {
+            return {
+                ...state,
+                messagesIsFetching: action.payload
+            }
+        }
         default:
             return state;
     }
 }
 
-export const addMessageActionCreator = (user, message, addedDate) => ({type: ADD_MESSAGE, payload: {user, message, addedDate}});
+export const addMessageActionCreator = (user, message, addedDate) => ({
+    type: ADD_MESSAGE,
+    payload: {user, message, addedDate}
+});
 export const setDialogsActionCreator = (users) => ({type: SET_DIALOGS, payload: users});
 export const setDialogActionCreator = (user) => ({type: SET_DIALOG, payload: user});
 export const setMessagesActionCreator = (messages) => ({type: SET_MESSAGES, payload: messages});
+export const toggleIsFetchingActionCreator = (isFetching) => ({type: TOGGLE_IS_FETCHING, payload: isFetching});
+export const toggleMessagesIsFetchingActionCreator = (isFetching) => ({type: TOGGLE_MESSAGES_IS_FETCHING, payload: isFetching});
 
 export const getDialogsThunkCreator = () => {
-    return (dispatch) => {
-        dialogsAPI.getUserDialogs()
-            .then(dialogs => {
-                dispatch(setDialogsActionCreator(dialogs))
-            })
+    return async (dispatch) => {
+        dispatch(toggleIsFetchingActionCreator(true));
+
+        let dialogs = await dialogsAPI.getUserDialogs();
+        dispatch(toggleIsFetchingActionCreator(false));
+        dispatch(setDialogsActionCreator(dialogs));
     }
 }
 
 export const getMessagesThunkCreator = (userId) => {
-    return (dispatch) => {
-        profileAPI.getUserProfile(userId)
-            .then(data => dispatch(setDialogActionCreator(data)));
+    return async (dispatch) => {
+        dispatch(toggleMessagesIsFetchingActionCreator(true));
+        let profileAPIData = await profileAPI.getUserProfile(userId);
+        dispatch(setDialogActionCreator(profileAPIData));
 
-        dialogsAPI.getMessagesWithFriend(userId)
-            .then(data => {
-                return data
-            })
-            .then(data => dispatch(setMessagesActionCreator(data.items)))
+        let dialogsAPIData = await dialogsAPI.getMessagesWithFriend(userId);
+        dispatch(toggleMessagesIsFetchingActionCreator(false));
+        dispatch(setMessagesActionCreator(dialogsAPIData.items));
     }
 }
 
 export const sendMessageToUserThunkCreator = (user, message) => {
-    return (dispatch) => {
-        dialogsAPI.sendMessageToUser(user.userId, message)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(addMessageActionCreator(user, message, new Date()))
-                }
-            })
+    return async (dispatch) => {
+        let data = await dialogsAPI.sendMessageToUser(user.userId, message);
+
+        if (data.resultCode === 0) {
+            dispatch(addMessageActionCreator(user, message, new Date()))
+        }
     }
 }

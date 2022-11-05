@@ -1,6 +1,6 @@
 import {setAuthUserDataThunkCreator} from "./auth-reducer";
 
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
+const INITIALIZED_SUCCESS = "app-reducer/INITIALIZED_SUCCESS";
 
 const initialState = {
     initialized: false

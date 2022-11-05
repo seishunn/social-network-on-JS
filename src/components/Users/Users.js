@@ -3,14 +3,7 @@ import {User} from "./User/User";
 import {Paginator} from "../../common/Paginator/Paginator";
 import React from "react";
 
-export const Users = (props) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages = [];
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-
+export const Users = ({totalUsersCount, pageSize, pageChanged, changeCurrentPage, currentPage, ...props}) => {
     const usersList = props.users.map(user => (
         <User
             id={user.id}
@@ -36,10 +29,11 @@ export const Users = (props) => {
                     {usersList}
                 </div>
                 <Paginator
-                    pagesSize={pages}
-                    currentPage={props.currentPage}
-                    changeCurrentPage={props.changeCurrentPage}
-                    pageChanged={props.pageChanged}
+                    currentPage={currentPage}
+                    changeCurrentPage={changeCurrentPage}
+                    pageChanged={pageChanged}
+                    totalUsersCount={totalUsersCount}
+                    pageSize={pageSize}
                 />
             </div>
         </div>
