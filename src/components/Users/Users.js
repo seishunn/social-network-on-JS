@@ -25,16 +25,16 @@ export const Users = ({totalUsersCount, pageSize, pageChanged, changeCurrentPage
                 <div className={style.title}>
                     Пользователи
                 </div>
-                <div className={style.users}>
-                    {usersList}
-                </div>
                 <Paginator
                     currentPage={currentPage}
                     changeCurrentPage={changeCurrentPage}
                     pageChanged={pageChanged}
-                    totalUsersCount={totalUsersCount}
+                    totalItemsCount={totalUsersCount}
                     pageSize={pageSize}
                 />
+                <div className={style.users}>
+                    {usersList}
+                </div>
             </div>
         </div>
     );

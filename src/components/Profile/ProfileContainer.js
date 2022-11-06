@@ -44,7 +44,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export const ProfileContainer = compose(
+export default compose(
     connect(mapStateToProps,
         {
             getUser: getUserThunkCreator,

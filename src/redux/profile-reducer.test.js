@@ -20,7 +20,7 @@ test('Length of posts should be incremented', () => {
 })
 
 
-test('should ', function () {
+it('should ', function () {
     function sum(a, b) {
         return a + b;
     }

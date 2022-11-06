@@ -59,7 +59,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export const UsersContainer = compose(
+export default compose(
     connect(mapStateToProps, {
         followUser: followUserThunkCreator,
         unfollowUser: unfollowUserThunkCreator,

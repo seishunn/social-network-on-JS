@@ -35,11 +35,9 @@ const DialogReduxForm = reduxForm({
 })(DialogForm)
 
 export const Messages = (props) => {
-    if (props.messagesIsFetching) {
-        return <Preloader/>
-    }
     return (
         <div className={style.messagesPage}>
+            {props.messagesIsFetching && <Preloader/>}
             <MessagesUserBar fullName={props.dialog?.fullName ?? "User"} userId={props.dialog?.userId}/>
             <div className={style.messages}>
                 <MessagesList
