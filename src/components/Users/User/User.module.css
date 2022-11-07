@@ -2,14 +2,16 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border-top: 1px solid rgb(66,70,77);
     border-bottom: 1px solid rgb(66,70,77);
     cursor: pointer;
+    max-width: 100%;
+    width: 100%;
 }
 
 .userLeft {
     display: flex;
+    flex: 1 1 auto;
 }
 
 .userRight {
@@ -43,10 +45,13 @@
 }
 
 .avatar {
+    min-width: 40px;
+    min-height: 40px;
     width: 40px;
     height: 40px;
     position: relative;
     margin: 0 10px 0 0;
+    flex: 0 0 40px;
 }
 
 .avatarStatus {
@@ -71,11 +76,21 @@
     border-radius: 50%;
 }
 
+.userInfo {
+    flex: 1 1 auto;
+}
+
 .name {
+    display: inline-block;
     font-weight: 700;
     font-size: 16px;
     margin: 0 0 5px 0;
     color: #fff;
+    max-width: 100%;
+    line-height: 20px;
+    height: 20px;
+    overflow-y: hidden;
+    word-wrap: anywhere;
 }
 
 .status, .name span {
@@ -104,4 +119,18 @@
 
 .removeUser {
     background: rgb(235,76,66);
+}
+
+@media (max-width: 400px) {
+    .name {
+        font-size: 10px;
+    }
+    .link {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+    }
+    .link img {
+        transform: scale(0.5, 0.5);
+    }
 }

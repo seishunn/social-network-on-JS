@@ -36,7 +36,7 @@ const DialogReduxForm = reduxForm({
 
 export const Messages = (props) => {
     return (
-        <div className={style.messagesPage}>
+        <>
             {props.messagesIsFetching && <Preloader/>}
             <MessagesUserBar fullName={props.dialog?.fullName ?? "User"} userId={props.dialog?.userId}/>
             <div className={style.messages}>
@@ -54,6 +54,6 @@ export const Messages = (props) => {
                 userId={props.dialog?.userId}
                 sendMessageToUser={props.sendMessageToUser}
             />
-        </div>
+        </>
     );
 }

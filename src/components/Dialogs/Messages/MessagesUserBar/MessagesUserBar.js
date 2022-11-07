@@ -7,7 +7,10 @@ export const MessagesUserBar = (props) => {
             <div className={style.messagePreName}>@</div>
             <div className={style.messageName}>{props.fullName}</div>
             <div className={style.messageAka}>AKA</div>
-            <NavLink to={`/profile/${props.userId}`}>{props.fullName}</NavLink>
+            <NavLink
+                to={`/profile/${props.userId}`}
+                className={style.navAka}
+            >{props.fullName}</NavLink>
         </div>
     );
 }

@@ -31,7 +31,9 @@ class DialogsContainer extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.params.id !== this.props.params.id) {
-            this.props.getMessages(this.props.params.id);
+            if (!!this.props.params.id) {
+                this.props.getMessages(this.props.params.id);
+            }
         }
     }
 

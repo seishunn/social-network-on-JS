@@ -9,9 +9,6 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-}
-
-.profile {
     padding: 10px ;
     position: relative;
     top: -50px;
@@ -20,4 +17,11 @@
     background: rgb(32,34,37);
     border-radius: 15px;
     overflow: hidden;
+}
+
+@media (max-width: 500px) {
+    .profile {
+        display: block;
+        font-size: 16px;
+    }
 }

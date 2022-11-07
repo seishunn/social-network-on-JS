@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    z-index: 300;
 }
 
 .navigation div {
@@ -13,4 +15,13 @@
 .title {
     font-weight: 700;
     font-size: 12px;
+}
+
+@media (max-width: 500px) {
+    .navigation {
+        padding: 5px;
+    }
+    .navigation div {
+        margin: 5px 0;
+    }
 }

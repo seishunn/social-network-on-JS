@@ -68,3 +68,9 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
   border-top-left-radius: 8px;
 }
 
+@media (max-width: 500px) {
+  .App {
+    grid-template-columns: 62px 1fr;
+  }
+}
+

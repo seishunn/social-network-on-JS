@@ -4,7 +4,8 @@ import {connect} from "react-redux";
 import {
     getUserThunkCreator,
     getUserStatusThunkCreator,
-    updateUserStatusThunkCreator
+    updateUserStatusThunkCreator,
+    updateProfileImageThunkCreator
 } from "../../redux/profile-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
@@ -15,7 +16,7 @@ import {withRouter} from "../../HOC/withRouter";
 
 class ProfileContainerAPIComponent extends React.Component {
 
-    componentDidMount() {
+    refreshProfile () {
         let userId = this.props.params.id;
         if (!userId) {
             userId = this.props.id;
@@ -24,12 +25,22 @@ class ProfileContainerAPIComponent extends React.Component {
         this.props.getUserStatus(userId);
     }
 
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.params.id !== this.props.params.id) {
+            this.refreshProfile();
+        }
+    }
+
     render() {
         if (this.props.isFetching || !this.props.profile) {
             return <Preloader/>
         } else {
             return (
-                <Profile {...this.props}/>
+                <Profile {...this.props} owner={!!this.props.params.id}/>
             )
         }
     }
@@ -49,7 +60,8 @@ export default compose(
         {
             getUser: getUserThunkCreator,
             getUserStatus: getUserStatusThunkCreator,
-            updateUserStatus: updateUserStatusThunkCreator
+            updateUserStatus: updateUserStatusThunkCreator,
+            updateProfileImage: updateProfileImageThunkCreator
         }),
     withAuthRedirect,
     withRouter

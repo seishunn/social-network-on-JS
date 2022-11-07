@@ -5,7 +5,13 @@ import {ProfilePostsContainer} from "./ProfileInfo/ProfilePosts/ProfilePostsCont
 export const Profile = (props) => {
     return (
         <div className={style.profilePage}>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateUserStatus}/>
+            <ProfileInfo
+                profile={props.profile}
+                status={props.status}
+                updateStatus={props.updateUserStatus}
+                owner={props.owner}
+                updateProfileImage={props.updateProfileImage}
+            />
             <ProfilePostsContainer/>
         </div>
     );

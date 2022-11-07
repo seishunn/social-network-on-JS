@@ -27,3 +27,18 @@
     border: none;
     background: rgb(32,34,37);
 }
+
+@media (max-width: 400px) {
+    .inputBlock > label {
+        font-size: 10px;
+        line-height: 12px;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: rgb(185,187,190);
+    }
+    .inputWrapper input {
+        padding: 10px;
+        height: 30px;
+        font-size: 16px;
+    }
+}

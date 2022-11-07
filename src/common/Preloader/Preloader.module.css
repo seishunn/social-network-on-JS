@@ -9,6 +9,12 @@
     justify-content: center;
     align-items: center;
 }
+
+.preloaderBlock > div {
+    position: relative;
+    right: 31px;
+}
+
 .preloader {
     width: 300px;
     height: 300px;
@@ -76,4 +82,34 @@
     font-size: 20px;
     font-weight: 700;
     color: #fff;
+}
+
+@media (max-width: 500px) {
+    .preloader {
+        width: 170px;
+        height: 170px;
+    }
+    .preloader span:nth-child(1) {
+        width: 178px;
+        height: 178px;
+        transform-origin: 118px;
+    }
+
+    .preloader span:nth-child(2) {
+        width: 173px;
+        height: 173px;
+        transform-origin: 113px;
+    }
+
+    .preloader span:nth-child(3) {
+        width: 175px;
+        height: 175px;
+        transform-origin: 115px;
+    }
+
+    .preloader span:nth-child(4) {
+        width: 170px;
+        height: 170px;
+        transform-origin: 120px;
+    }
 }

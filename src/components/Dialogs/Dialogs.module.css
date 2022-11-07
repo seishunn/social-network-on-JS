@@ -29,3 +29,35 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.messagesPage {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    background: rgb(54,57,63);
+}
+
+
+
+@media (max-width: 800px) {
+    .dialogsSideBar {
+        flex: 0 0 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .visibleDialogsSideBar {
+        flex: 1 1 auto;
+    }
+    .hiddenDialogsSideBar {
+        display: none;
+    }
+
+    .hiddenMessagePage {
+        display: none;
+    }
+    .visibleMessagePage {
+        flex: 1 1 auto;
+    }
+}
+

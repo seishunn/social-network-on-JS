@@ -25,12 +25,26 @@
     object-fit: cover;
 }
 
-.change {
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 10px;
-    background: rgb(88,101,242);
-    border-radius: 3px;
-    text-align: center;
+.settingsBlockBackground {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    cursor: pointer;
+}
+.settingsBlock {
+    padding: 20px;
+    background: rgba(54,57,63);
+    border-radius: 8px;
+}
+
+@media (max-width: 500px) {
+    .profile {
+        margin-right: 0;
+    }
 }
