@@ -1,32 +1,39 @@
 import {connect} from "react-redux";
 import {Users} from "./Users";
-import {
-    followUserThunkCreator,
-    getUsersThunkCreator,
-    setCurrentPageActionCreator,
-    unfollowUserThunkCreator
-} from "../../redux/users-reducer";
+import {UserType} from "./Users";
 import React from "react";
-import {Preloader} from "../../common/Preloader/Preloader";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../HOC/withAuthRedirect";
-import {dialogsAPI} from "../../API/API";
-import {
+const {Preloader} = require("../../common/Preloader/Preloader");
+const {
     getCurrentPage, getFetching,
-    getFollowingInProgress,
-    getPageSize,
-    getTotalUsersCount,
-    getUsers
-} from "../../redux/users-selectors";
+    getFollowingInProgress, getPageSize,
+    getTotalUsersCount, getUsers
+} = require("../../redux/users-selectors");
+const {followUserThunkCreator, getUsersThunkCreator,
+    setCurrentPageActionCreator, unfollowUserThunkCreator
+} =  require("../../redux/users-reducer");
 
-// Первая контейнерная компонента, для получения списка пользователей при вмонтировании. (2 уровень)
-export class UsersClassAPIComponent extends React.Component {
+type PropsType = {
+    currentPage: number
+    followingInProgress: Array<number>
+    pageSize: number
+    totalUsersCount: number
+    users: Array<UserType>
+    isFetching: boolean
+
+    changeCurrentPage: (pageNumber: number) => void
+    followUser: (userId: number) => void
+    getUsers: (pageNumber: number, pageSize: number) => void
+    unfollowUser: (userId: number) => void
+}
+
+export class UsersClassAPIComponent extends React.Component<PropsType> {
     componentDidMount = () => {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
-    onPageChanged = (page) => {
-        this.props.changeCurrentPage(page);
-        this.props.getUsers(page, this.props.pageSize);
+    onPageChanged = (pageNumber: number) => {
+        this.props.changeCurrentPage(pageNumber);
+        this.props.getUsers(pageNumber, this.props.pageSize);
     }
     render() {
         return (
@@ -47,8 +54,7 @@ export class UsersClassAPIComponent extends React.Component {
     }
 }
 
-// Вторая контейнерная компонента, для работы с store. (1 уровень - главная)
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: any) => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),

@@ -7,13 +7,16 @@ export const ProfileInfo = (props) => {
     return (
         <>
             <LargeImage photo={props.profile?.photos}/>
-            <div className={style.profile}>
-                <ProfileAvatar
-                    photo={props.profile?.photos}
-                    owner={props.owner}
-                    updateProfileImage={props.updateProfileImage}
-                />
-                <ProfileDescription profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            <div className={style.profileWrapper}>
+                <div className={style.profile}>
+                    <ProfileAvatar
+                        photo={props.profile?.photos}
+                        owner={props.owner}
+                        updateProfileImage={props.updateProfileImage}
+                    />
+                    <ProfileDescription profile={props.profile} status={props.status}
+                                        updateStatus={props.updateStatus}/>
+                </div>
             </div>
         </>
     );

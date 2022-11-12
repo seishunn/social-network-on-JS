@@ -34,6 +34,9 @@ export const profileAPI = {
     getUserProfile(userId) {
         return instance
             .get(`profile/${userId}`)
+            .then(response => {
+                return response
+            })
             .then(response => response.data);
     },
     getStatus(userId) {
@@ -94,9 +97,9 @@ export const dialogsAPI = {
             .get(`dialogs`)
             .then(response => response.data)
     },
-    getMessagesWithFriend(userId) {
+    getMessagesWithFriend(userId, page = 1, count = 20) {
         return instance
-            .get(`dialogs/${userId}/messages`)
+            .get(`dialogs/${userId}/messages?page=${page}&count=${count}`)
             .then(response => {
                 return response.data;
             })

@@ -1,7 +1,7 @@
 import './App.css';
 import React, {lazy} from "react";
 import Navigation from "./components/Navigation/NavigationContainer";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import {LoginContainer} from "./components/Login/Login";
 import {Component} from "react";
 import {connect} from "react-redux";
@@ -37,6 +37,10 @@ class App extends Component {
                                 <React.Suspense fallback={<Preloader/>}>
                                     <ProfileContainer/>
                                 </React.Suspense>
+                            }/>
+
+                            <Route path={"/*"} element={
+                                <Navigate to={"/profile"}/>
                             }/>
 
                             <Route path={"/dialogs"} element={
