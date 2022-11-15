@@ -1,13 +1,14 @@
+import React from "react";
 import style from "./Messages.module.css";
-import {MessagesList} from "./MessagesList/MessagesList";
-import {MessagesUserBar} from "./MessagesUserBar/MessagesUserBar";
-import {AddItemArea} from "../../AddItemArea/AddItemArea";
-import DiscordLogo from "../../../assets/c09a43a372ba81e3018c3151d4ed4773.png";
 import {reduxForm} from "redux-form";
 import {Preloader} from "../../../common/Preloader/Preloader";
+const {MessagesList} = require("./MessagesList/MessagesList");
+const {MessagesUserBar} = require("./MessagesUserBar/MessagesUserBar");
+const {AddItemArea} = require("../../AddItemArea/AddItemArea");
+const DiscordLogo = require("../../../assets/c09a43a372ba81e3018c3151d4ed4773.png");
 
-const DialogForm = (props) => {
-    const onSubmit = (formData) => {
+const DialogForm = (props: any) => {
+    const onSubmit = (formData: any) => {
         const user = {
             authId: props.authId,
             userId: props.userId,
@@ -30,11 +31,21 @@ const DialogForm = (props) => {
     )
 }
 
-const DialogReduxForm = reduxForm({
+
+const DialogReduxForm: any = reduxForm({
         form: "dialog"
 })(DialogForm)
 
-export const Messages = (props) => {
+
+type MessagesType = {
+    messages: Array<any>
+    dialog: any
+    authId: number
+    profile: any
+    messagesIsFetching: boolean
+    sendMessageToUser: (user: any, message: string) => any
+}
+export const Messages = (props: MessagesType) => {
     return (
         <>
             {props.messagesIsFetching && <Preloader/>}

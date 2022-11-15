@@ -1,20 +1,27 @@
 import './App.css';
 import React, {lazy} from "react";
-import Navigation from "./components/Navigation/NavigationContainer";
 import {Routes, Route, Navigate} from "react-router-dom";
-import {LoginContainer} from "./components/Login/Login";
 import {Component} from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {withRouter} from "./HOC/withRouter";
 import {initializeAppThunkCreator} from "./redux/app-reducer";
 import {Preloader} from "./common/Preloader/Preloader";
+import {RootState} from "./redux/redux-store";
+
+const Navigation = require("./components/Navigation/NavigationContainer").default;
+const {LoginContainer} = require("./components/Login/Login");
+const {withRouter} = require("./HOC/withRouter");
 
 const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
 const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
 const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
 
-class App extends Component {
+type PropsType = {
+    initializeApp: () => any
+    initialized: boolean
+}
+
+class App extends Component<PropsType> {
     componentDidMount() {
         this.props.initializeApp();
     }
@@ -69,7 +76,7 @@ class App extends Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: RootState) => {
     return {
         initialized: state.app.initialized
     }

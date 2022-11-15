@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {
     getUserThunkCreator,
@@ -8,13 +7,35 @@ import {
     updateProfileImageThunkCreator
 } from "../../redux/profile-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
-import {withRouter} from "../../HOC/withRouter";
+import {RootState} from "../../redux/redux-store";
+const {Profile} = require("./Profile");
+const {withAuthRedirect} = require("../../HOC/withAuthRedirect");
+const {withRouter} = require("../../HOC/withRouter");
 
+type MapStateToProps = {
+    profile: any
+    isFetching: boolean
+    status: string
+    id: number
+};
 
+type MapDispatchToProps = {
+    getUser: (userId: number) => any
+    getUserStatus: (userId: number) => void
+    updateUserStatus: (status: string) => void
+    updateProfileImage: (photos: any) => void
+}
 
-class ProfileContainerAPIComponent extends React.Component {
+type OnwPropsType = {
+    params: {
+        id: number
+    }
+}
+
+type PropsType = MapStateToProps & MapDispatchToProps & OnwPropsType
+
+class ProfileContainerAPIComponent extends React.Component<PropsType> {
 
     refreshProfile () {
         let userId = this.props.params.id;
@@ -29,7 +50,7 @@ class ProfileContainerAPIComponent extends React.Component {
         this.refreshProfile();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
         if (prevProps.params.id !== this.props.params.id) {
             this.refreshProfile();
         }
@@ -46,7 +67,7 @@ class ProfileContainerAPIComponent extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: RootState) => {
     return {
         profile: state.profilePage.profile,
         isFetching: state.profilePage.isFetching,
@@ -55,7 +76,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
+export default compose<any>(
     connect(mapStateToProps,
         {
             getUser: getUserThunkCreator,

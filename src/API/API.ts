@@ -1,4 +1,5 @@
 import axios from "axios";
+import {LoginFormDataType} from "../redux/auth-reducer";
 
 const instance = axios.create({
     headers: {
@@ -14,7 +15,7 @@ export const authAPI = {
             .get(`auth/me`)
             .then(response => response.data)
     },
-    login (formData) {
+    login (formData: LoginFormDataType) {
         return instance
             .post(`auth/login`, {
                 email: formData.login,
@@ -31,7 +32,7 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    getUserProfile(userId) {
+    getUserProfile(userId: number) {
         return instance
             .get(`profile/${userId}`)
             .then(response => {
@@ -39,19 +40,19 @@ export const profileAPI = {
             })
             .then(response => response.data);
     },
-    getStatus(userId) {
+    getStatus(userId: number) {
         return instance
             .get(`profile/status/${userId}`)
             .then(response => response.data);
     },
-    updateStatus(status) {
+    updateStatus(status: string) {
         return instance
             .put(`profile/status`, {
                 status: status
             })
             .then(response => response.data);
     },
-    updateUserImage(image) {
+    updateUserImage(image: any) {
         const formData = new FormData();
         formData.append('image', image);
 
@@ -71,12 +72,12 @@ export const usersAPI = {
             .get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data);
     },
-    followUser(userId) {
+    followUser(userId: number) {
         return instance
             .post(`follow/${userId}`)
             .then(response => response.data);
     },
-    unfollowUser(userId) {
+    unfollowUser(userId: number) {
         return instance
             .delete(`follow/${userId}`)
             .then(response => response.data);
@@ -85,7 +86,7 @@ export const usersAPI = {
 }
 
 export const dialogsAPI = {
-    sendMessageToUser(userId, message) {
+    sendMessageToUser(userId: number, message: string) {
         return instance
             .post(`dialogs/${userId}/messages`, {
                 body: message
@@ -97,7 +98,7 @@ export const dialogsAPI = {
             .get(`dialogs`)
             .then(response => response.data)
     },
-    getMessagesWithFriend(userId, page = 1, count = 20) {
+    getMessagesWithFriend(userId: number, page = 1, count = 20) {
         return instance
             .get(`dialogs/${userId}/messages?page=${page}&count=${count}`)
             .then(response => {

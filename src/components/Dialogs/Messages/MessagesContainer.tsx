@@ -1,11 +1,11 @@
-import {
+import {connect} from "react-redux";
+const {
     addMessageActionCreator,
     sendMessageToUserThunkCreator,
-} from "../../../redux/dialogs-reducer";
-import {connect} from "react-redux";
-import {Messages} from "./Messages";
+} = require("../../../redux/dialogs-reducer");
+const {Messages} = require("./Messages");
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
     return {
         messages: state.dialogsPage.messages,
         dialog: state.dialogsPage.dialog,
@@ -16,6 +16,5 @@ const mapStateToProps = (state) => {
 }
 
 export const MessagesContainer = connect(mapStateToProps, {
-    addItemAction: addMessageActionCreator,
     sendMessageToUser: sendMessageToUserThunkCreator
 })(Messages);

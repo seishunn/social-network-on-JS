@@ -22,7 +22,7 @@ const LoginForm = (props) => {
                     name={"login"}
                 />
                 <InputBlock
-                    label={"Пароль"}
+                        label={"Пароль"}
                     type={"password"}
                     name={"password"}
                 />

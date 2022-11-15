@@ -1,5 +1,6 @@
 import {PhotosType} from "../components/Users/Users";
-import {ActionType} from "./auth-reducer";
+import {ThunkAction} from "redux-thunk";
+import {RootState} from "./redux-store";
 
 const {dialogsAPI, profileAPI} = require("../API/API");
 
@@ -11,7 +12,19 @@ const CLEARE_MESSAGES = "dialogs-reducer/CLEARE_MESSAGES";
 const TOGGLE_IS_FETCHING = "dialogs-reducer/TOGGLE_IS_FETCHING";
 const TOGGLE_MESSAGES_IS_FETCHING = "dialogs-reducer/TOGGLE_MESSAGES_IS_FETCHING";
 
-type DialogsInArrayType = {
+type DialogsUserType = {
+    authId: number
+    name: string
+    userId: number
+};
+export type SendMessageType = {
+    addedDate: string | Date
+    id?: string
+    message: string
+    name: string
+    senderId: number
+};
+export type DialogsInArrayType = {
     hasNewMessages: boolean
     id: number
     lastDialogActivityDate: string
@@ -19,7 +32,7 @@ type DialogsInArrayType = {
     newMessagesCount: number
     photos: PhotosType
     userName: string
-}
+};
 type DialogUserType = {
     aboutMe?: string
     contacts?: {
@@ -37,11 +50,11 @@ type DialogUserType = {
     lookingForAJobDescription?: string | null
     photos: PhotosType
     userId: number | null
-}
+};
 
 type InitialStateType = {
-    messages: Array<any>
-    dialogs: Array<any>
+    messages: Array<SendMessageType>
+    dialogs: Array<DialogsInArrayType>
     dialog: any
     isFetching: boolean
     messagesIsFetching: boolean
@@ -57,10 +70,14 @@ const initialState: InitialStateType = {
     totalCount: null
 }
 
-export const dialogsReducer = (state = initialState, action: ActionType): InitialStateType => {
+type ActionTypes = AddMessageActionType | SetDialogsActionType | SetDialogActionType
+| SetMessagesActionType | ToggleIsFetchingActionType | ToggleMessagesIsFetchingActionType
+| ClearMessageActionType;
+
+export const dialogsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE: {
-            let newMessage = {
+            let newMessage: SendMessageType = {
                 message: action.payload.message,
                 name: action.payload.user.name,
                 addedDate: action.payload.addedDate,
@@ -122,30 +139,62 @@ export const dialogsReducer = (state = initialState, action: ActionType): Initia
     }
 }
 
-export const addMessageActionCreator = (user: any, message: string, addedDate: Date) => ({type: ADD_MESSAGE, payload: {user, message, addedDate}});
+type AddMessageActionType = {
+    type: typeof ADD_MESSAGE
+    payload: {
+        user: DialogsUserType
+        message: string
+        addedDate: Date
+    }
+};
+export const addMessageActionCreator = (user: DialogsUserType, message: string, addedDate: Date): AddMessageActionType => ({type: ADD_MESSAGE, payload: {user, message, addedDate}});
 type SetDialogsActionType = {
     type: typeof SET_DIALOGS
     payload: Array<DialogsInArrayType>
-}
+};
 export const setDialogsActionCreator = (users: Array<DialogsInArrayType>): SetDialogsActionType => ({type: SET_DIALOGS, payload: users});
-export const setDialogActionCreator = (user: DialogUserType) => ({type: SET_DIALOG, payload: user});
-export const setMessagesActionCreator = (messages: string, totalCount: number | null) => ({type: SET_MESSAGES, payload: {messages, totalCount}});
-export const toggleIsFetchingActionCreator = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, payload: isFetching});
-export const toggleMessagesIsFetchingActionCreator = (isFetching: boolean) => ({type: TOGGLE_MESSAGES_IS_FETCHING, payload: isFetching});
-export const clearMessageActionCreator = () => ({type: CLEARE_MESSAGES});
+type SetDialogActionType = {
+    type: typeof SET_DIALOG
+    payload: DialogUserType
+};
+export const setDialogActionCreator = (user: DialogUserType): SetDialogActionType => ({type: SET_DIALOG, payload: user});
+type SetMessagesActionType = {
+    type: typeof SET_MESSAGES
+    payload: {
+        messages: Array<SendMessageType>
+        totalCount: number | null
+    }
+};
+export const setMessagesActionCreator = (messages: Array<SendMessageType>, totalCount: number | null): SetMessagesActionType => ({type: SET_MESSAGES, payload: {messages, totalCount}});
+type ToggleIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCHING
+    payload: boolean
+};
+export const toggleIsFetchingActionCreator = (isFetching: boolean): ToggleIsFetchingActionType => ({type: TOGGLE_IS_FETCHING, payload: isFetching});
+type ToggleMessagesIsFetchingActionType = {
+    type: typeof TOGGLE_MESSAGES_IS_FETCHING
+    payload: boolean
+};
+export const toggleMessagesIsFetchingActionCreator = (isFetching: boolean): ToggleMessagesIsFetchingActionType => ({type: TOGGLE_MESSAGES_IS_FETCHING, payload: isFetching});
+type ClearMessageActionType = {
+    type: typeof CLEARE_MESSAGES
+};
+export const clearMessageActionCreator = (): ClearMessageActionType => ({type: CLEARE_MESSAGES});
 
-export const getDialogsThunkCreator = () => {
-    return async (dispatch: any) => {
+// Thunk
+type ThunkType = ThunkAction<void, RootState, any, ActionTypes>;
+
+export const getDialogsThunkCreator = (): ThunkType => {
+    return async (dispatch) => {
         dispatch(toggleIsFetchingActionCreator(true));
 
         let dialogs = await dialogsAPI.getUserDialogs();
         dispatch(toggleIsFetchingActionCreator(false));
         dispatch(setDialogsActionCreator(dialogs));
     }
-}
-
-export const getMessagesThunkCreator = (userId: number) => {
-    return async (dispatch: any) => {
+};
+export const getMessagesThunkCreator = (userId: number): ThunkType => {
+    return async (dispatch) => {
         dispatch(toggleMessagesIsFetchingActionCreator(true));
         let profileAPIData = await profileAPI.getUserProfile(userId);
         dispatch(setDialogActionCreator(profileAPIData));
@@ -162,10 +211,9 @@ export const getMessagesThunkCreator = (userId: number) => {
 
         dispatch(toggleMessagesIsFetchingActionCreator(false));
     }
-}
-
-export const sendMessageToUserThunkCreator = (user: any, message: string) => {
-    return async (dispatch: any) => {
+};
+export const sendMessageToUserThunkCreator = (user: DialogsUserType, message: string): ThunkType => {
+    return async (dispatch) => {
         let data = await dialogsAPI.sendMessageToUser(user.userId, message);
 
         if (data.resultCode === 0) {

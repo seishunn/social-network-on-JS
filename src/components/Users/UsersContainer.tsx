@@ -3,29 +3,35 @@ import {Users} from "./Users";
 import {UserType} from "./Users";
 import React from "react";
 import {compose} from "redux";
+import {RootState} from "../../redux/redux-store";
 const {Preloader} = require("../../common/Preloader/Preloader");
 const {
     getCurrentPage, getFetching,
     getFollowingInProgress, getPageSize,
     getTotalUsersCount, getUsers
 } = require("../../redux/users-selectors");
+const {AppStateToProps} = require('../../redux/redux-store')
 const {followUserThunkCreator, getUsersThunkCreator,
     setCurrentPageActionCreator, unfollowUserThunkCreator
 } =  require("../../redux/users-reducer");
 
-type PropsType = {
-    currentPage: number
-    followingInProgress: Array<number>
+type MapDispatchToPropsType = {
+    followUser: (userId: number) => void
+    unfollowUser: (userId: number) => void
+    changeCurrentPage: (pageNumber: number) => void
+    getUsers: (pageNumber: number, pageSize: number) => void
+};
+type MapStateToPropsType = {
+    users: Array<UserType>
     pageSize: number
     totalUsersCount: number
-    users: Array<UserType>
+    currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
+};
+type OwnPropsType = {};
 
-    changeCurrentPage: (pageNumber: number) => void
-    followUser: (userId: number) => void
-    getUsers: (pageNumber: number, pageSize: number) => void
-    unfollowUser: (userId: number) => void
-}
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
 
 export class UsersClassAPIComponent extends React.Component<PropsType> {
     componentDidMount = () => {
@@ -54,7 +60,7 @@ export class UsersClassAPIComponent extends React.Component<PropsType> {
     }
 }
 
-let mapStateToProps = (state: any) => {
+let mapStateToProps = (state: RootState): MapStateToPropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -65,8 +71,8 @@ let mapStateToProps = (state: any) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps, {
+export default compose<any>(
+    connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps, {
         followUser: followUserThunkCreator,
         unfollowUser: unfollowUserThunkCreator,
         changeCurrentPage: setCurrentPageActionCreator,
