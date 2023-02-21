@@ -1,5 +1,5 @@
 # О проекте
-[Ссылка на проект](https://seishunn.github.io/social-network-on-JS/)
+[Ссылка на проект](https://seishunn.github.io/social-network-on-JS/)   
 Данная социальная сеть написана с использованием API https://social-network.samuraijs.com/
 .Тестовый аккаунт для проверки работоспособности сайт  
 >#### InputBlock
